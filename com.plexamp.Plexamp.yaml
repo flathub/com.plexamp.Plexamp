@@ -12,6 +12,7 @@ finish-args:
   - --share=network
   - --socket=pulseaudio
   - --socket=x11
+  - --device=dri
   - --talk-name=org.freedesktop.Notifications
   - --own-name=org.mpris.MediaPlayer2.Plexamp
 modules:
