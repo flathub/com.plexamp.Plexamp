@@ -18,10 +18,10 @@
     </releases>
     <screenshots>
 		<screenshot type="default">
-			<image type="source">https://raw.githubusercontent.com/flathub/flathub/1a16d0bb6c9c36200fdf65e34de3dc1229620034/plexamp_1.png</image>
+			<image type="source">https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/plexamp_1.png</image>
 		</screenshot>
 		<screenshot>
-			<image type="source">https://raw.githubusercontent.com/flathub/flathub/1a16d0bb6c9c36200fdf65e34de3dc1229620034/plexamp_2.png</image>
+			<image type="source">https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/plexamp_2.png</image>
 		</screenshot>
     </screenshots>
     <content_rating type="oars-1.1"/>
