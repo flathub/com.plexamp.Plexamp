@@ -51,3 +51,9 @@ modules:
         dest-filename: Plexamp.AppImage
         url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-3.4.4.AppImage
         sha256: d3c728f2a3c0081fa5c90296c9505b4d97c873512b8f4313594e492a42c4e6c7
+        x-checker-data:
+          is-main-source: true
+          type: html
+          url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/latest-linux.yml
+          version-pattern: 'path: Plexamp-([\d\.]+)\.AppImage'
+          url-template: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-$version.AppImage
