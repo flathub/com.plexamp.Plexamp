@@ -18,11 +18,14 @@
         <release version="3.4.3" date="2021-03-03"/>
     </releases>
     <screenshots>
-		<screenshot type="default">
-			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/plexamp_1.png</image>
+		<screenshot>
+			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/5b3d6866c9747f6e84e7800285b92f96f9de8c95/plexamp_1.png</image>
 		</screenshot>
 		<screenshot>
-			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/plexamp_2.png</image>
+			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/5b3d6866c9747f6e84e7800285b92f96f9de8c95/plexamp_2.png</image>
+		</screenshot>
+		<screenshot type="default">
+			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/5b3d6866c9747f6e84e7800285b92f96f9de8c95/plexamp_3.png</image>
 		</screenshot>
     </screenshots>
     <content_rating type="oars-1.1"/>
