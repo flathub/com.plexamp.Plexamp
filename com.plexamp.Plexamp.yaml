@@ -1,4 +1,3 @@
----
 app-id: com.plexamp.Plexamp
 base: org.electronjs.Electron2.BaseApp
 base-version: '20.08'
@@ -30,8 +29,10 @@ modules:
     build-commands:
       - unappimage Plexamp.AppImage
 
-      - for ext in desktop png; do cp "squashfs-root/plexamp.${ext}" "${FLATPAK_ID}.${ext}"; done
-      - desktop-file-edit --set-icon "${FLATPAK_ID}" --set-key Exec --set-value 'plexamp-run %u' "${FLATPAK_ID}.desktop"
+      - for ext in desktop png; do cp "squashfs-root/plexamp.${ext}" "${FLATPAK_ID}.${ext}";
+        done
+      - desktop-file-edit --set-icon "${FLATPAK_ID}" --set-key Exec --set-value 'plexamp-run
+        %u' "${FLATPAK_ID}.desktop"
 
       - install -D plexamp-run -t "${FLATPAK_DEST}/bin"
       - install -Dm644 "${FLATPAK_ID}.metainfo.xml" -t "${FLATPAK_DEST}/share/metainfo"
@@ -49,8 +50,8 @@ modules:
         path: com.plexamp.Plexamp.metainfo.xml
       - type: file
         dest-filename: Plexamp.AppImage
-        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-3.4.4.AppImage
-        sha256: d3c728f2a3c0081fa5c90296c9505b4d97c873512b8f4313594e492a42c4e6c7
+        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-3.4.5.AppImage
+        sha256: aef88d4901ec161ce29d56537a6112cb24a856e3a832640255fc14f2ebf57669
         x-checker-data:
           is-main-source: true
           type: html
