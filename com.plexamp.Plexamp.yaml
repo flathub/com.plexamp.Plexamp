@@ -51,7 +51,7 @@ modules:
       - type: file
         dest-filename: Plexamp.AppImage
         url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-3.7.1.AppImage
-        sha256: b8c2e106907a8b0ef08621e332f2c5103d15e3627bd84549654b0c3c7f0c5915
+        sha256: d35cbb91584d227c7ba0df57fd8b755f0afbd030413f0f71d3656126706e2e47
         x-checker-data:
           is-main-source: true
           type: html
