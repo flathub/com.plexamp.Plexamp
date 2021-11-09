@@ -50,8 +50,8 @@ modules:
         path: com.plexamp.Plexamp.metainfo.xml
       - type: file
         dest-filename: Plexamp.AppImage
-        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-3.8.0.AppImage
-        sha256: 1f5a4519298811f7db7476c9552bea1293827497954872e990a3257ef5b7d282
+        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-3.8.2.AppImage
+        sha256: b310044d71c449c510106da33c69dd371ef093d23f21466676c1277afc2b860a
         x-checker-data:
           is-main-source: true
           type: html
