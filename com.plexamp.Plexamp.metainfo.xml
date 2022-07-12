@@ -10,9 +10,9 @@
     <url type="homepage">https://plexamp.com</url>
     <url type="help">https://support.plex.tv/articles/</url>
     <description>
-        <p>★★ You'll need a Plex Media Server and an active Plex Pass to use this app ★★<br/>
-        ★★ From the same people who brought you the Plex app ★★<br/>
-        ★★ PS - If you're new to Plex, download the Plex app first ★★</p>
+        <p>★★ You'll need a Plex Media Server and an active Plex Pass to use this app ★★</p>
+        <p>★★ From the same people who brought you the Plex app ★★</p>
+        <p>★★ PS - If you're new to Plex, download the Plex app first ★★</p>
 
         <p>Plexamp is the answer to the question "what would happen if you gave a handful of Plex music and pixel nerds a few cocktails and free rein to create the app of their dreams?"</p>
 
@@ -58,7 +58,7 @@
         <release version="3.4.3" date="2021-03-03"/>
     </releases>
     <screenshots>
-		<screenshot>
+		<screenshot type="default">
 			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/1-player1.png</image>
 		</screenshot>
 		<screenshot>
