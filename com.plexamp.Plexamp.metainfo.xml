@@ -5,13 +5,38 @@
     <name>Plexamp</name>
     <summary>Plexamp - A beautiful Plex music player for audiophiles, curators, and hipsters.</summary>
     <metadata_license>CC0-1.0</metadata_license>
-    <project_license>LicenseRef-Proprietary=https://www.plex.tv/about/privacy-legal/plex-terms-of-service/</project_license>
+    <project_license>LicenseRef-proprietary=https://www.plex.tv/en-gb/about/privacy-legal/plex-terms-of-service/</project_license>
     <developer_name>Plex</developer_name>
     <url type="homepage">https://plexamp.com</url>
+    <url type="help">https://support.plex.tv/articles/</url>
     <description>
-        <p>Plexamp is a small, highly opinionated music player for Plex Media Server.</p>
-        <p>A Plex Pass and Plex Media Server is required to use Plexamp.</p>
-        <p>NOTE: This wrapper is not verified by, affiliated with, or supported by Plex.</p>
+        <p>★★ You'll need a Plex Media Server and an active Plex Pass to use this app ★★<br/>
+        ★★ From the same people who brought you the Plex app ★★<br/>
+        ★★ PS - If you're new to Plex, download the Plex app first ★★</p>
+
+        <p>Plexamp is the answer to the question "what would happen if you gave a handful of Plex music and pixel nerds a few cocktails and free rein to create the app of their dreams?"</p>
+
+        <p>Plexamp is a beautiful, dedicated Plex music player with tons of goodies for audiophile purists, music curators, and music fans of all ages looking for their next aural fix.</p>
+
+        <p>SUPER AUDIO PLAYER<br/>
+        Loudness leveling, true gapless playback, Sweet Fades™, soft transitions, a configurable preamp, a 7-band EQ, and more. Perfection for golden ears, buttery smooth touches for the rest of us. Custom pre-caching so your music keeps playing, because sometimes life brings you through tunnels.</brp>
+
+        <p>MUSIC TO YOUR EYES<br/>
+        Experience your music collection like you've never seen it before, with our UltraBlur backgrounds, over a dozen hypnotic visualizers, and four visual themes to satisfy every taste.</p>
+
+        <p>FIND YOUR FIX<br/>
+        Radios built from your library and your cooler friends' collections. Travel through time, pick a style or mood, or listen album-by-album like the purist you are. Use the Mix Builder to explore and craft your perfect blend. Explore your personal charts and see what you were into last Fall or your top albums from the 60s.</p>
+
+        <p>OFFLINE BLISS<br/>
+        Grab a few hours of your favorite playlist or stations with just a few taps. Download a custom mix or artist radio for the plane. Simple but powerful offline support for when you're in the woods or run out of cellular data.</p>
+
+        <p>IT'S THE LITTLE THINGS<br/>
+        Powerful search. Playback activity history. Swipe-up play queue peeking. Fun artist explorations. As many settings and tweaks as our resident UXpert let us add.</p>
+
+        <p>ENTERPRISE CLASS CUSTOMER RELATIONSHIP MANAGEMENT<br/>
+        Just kidding. It's a music player.</p>
+
+        <p>Follow us on Twitter @plexamp</p>
     </description>
     <releases>
         <release version="4.2.2" date="2022-06-01"/>
