@@ -27,7 +27,8 @@ modules:
   - name: plexamp
     buildsystem: simple
     build-commands:
-      - unappimage Plexamp.AppImage
+      - chmod +x Plexamp.AppImage
+      - ./Plexamp.AppImage --appimage-extract
 
       - for ext in desktop png; do cp "squashfs-root/plexamp.${ext}" "${FLATPAK_ID}.${ext}";
         done
