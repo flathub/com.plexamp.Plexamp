@@ -31,6 +31,7 @@
         <p>Follow us on Twitter @plexamp</p>
     </description>
     <releases>
+        <release version="4.6.0" date="2022-11-29"/>
         <release version="4.5.3" date="2022-11-12"/>
         <release version="4.5.2" date="2022-11-04"/>
         <release version="4.5.1" date="2022-10-29"/>
