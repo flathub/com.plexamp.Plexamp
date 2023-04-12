@@ -45,7 +45,7 @@ modules:
     buildsystem: simple
     build-commands:
       - unappimage Plexamp.AppImage
-      - mv squashfs-root "${FLATPAK_DEST}/plexamp"
+      - mv squashfs-root /app/bin/plexamp
     sources:
       - type: file
         dest-filename: Plexamp.AppImage
