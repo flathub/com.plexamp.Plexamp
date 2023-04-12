@@ -7,7 +7,7 @@ sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
 base-version: "22.08"
 
-command: plexamp-run
+command: startplexamp
 separate-locales: false
 
 finish-args:

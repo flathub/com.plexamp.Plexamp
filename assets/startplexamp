@@ -19,4 +19,4 @@ fi
 
 FLAGS+=(--enable-features="${FEATURES}")
 echo "Passing the following arguments to Electron:" "${FLAGS[@]}"
-zypak-wrapper /app/bin/armcord/armcord "${FLAGS[@]}" "$@"
+zypak-wrapper /app/bin/plexamp/plexamp "${FLAGS[@]}" "$@"
