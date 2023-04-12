@@ -21,15 +21,6 @@ finish-args:
   - --own-name=org.mpris.MediaPlayer2.Plexamp
 
 modules:
-  - name: unappimage
-    buildsystem: simple
-    build-commands:
-      - make -C squashfs-tools -j ${FLATPAK_BUILDER_N_JOBS} install INSTALL_DIR=${FLATPAK_DEST}/bin
-    sources:
-      - type: git
-        url: https://github.com/refi64/unappimage
-        commit: d7f86f2a0d7ec3a69211125207d5f127386b849a
-
   - name: assets
     buildsystem: simple
     build-commands:
@@ -41,12 +32,20 @@ modules:
       - type: dir
         path: .
 
+  - name: unappimage
+    buildsystem: simple
+    build-commands:
+      - make -C squashfs-tools -j ${FLATPAK_BUILDER_N_JOBS} install INSTALL_DIR=${FLATPAK_DEST}/bin
+    sources:
+      - type: git
+        url: https://github.com/refi64/unappimage
+        commit: d7f86f2a0d7ec3a69211125207d5f127386b849a
+
   - name: plexamp
     buildsystem: simple
     build-commands:
       - unappimage Plexamp.AppImage
       - mv squashfs-root "${FLATPAK_DEST}/plexamp"
-
     sources:
       - type: file
         dest-filename: Plexamp.AppImage
