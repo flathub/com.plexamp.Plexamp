@@ -1,60 +1,49 @@
 app-id: com.plexamp.Plexamp
-base: org.electronjs.Electron2.BaseApp
-base-version: '21.08'
+
 runtime: org.freedesktop.Platform
-runtime-version: '21.08'
+runtime-version: "22.08"
 sdk: org.freedesktop.Sdk
+
+base: org.electronjs.Electron2.BaseApp
+base-version: "22.08"
+
 command: plexamp-run
 separate-locales: false
+
 finish-args:
+  - --socket=pulseaudio
+  - --socket=wayland
+  - --socket=x11
   - --share=ipc
   - --share=network
-  - --socket=pulseaudio
-  - --socket=x11
   - --device=dri
   - --talk-name=org.freedesktop.Notifications
   - --own-name=org.mpris.MediaPlayer2.Plexamp
+
 modules:
-  - name: unappimage
+  - name: assets
     buildsystem: simple
     build-commands:
-      - make -C squashfs-tools -j ${FLATPAK_BUILDER_N_JOBS} install INSTALL_DIR=${FLATPAK_DEST}/bin
+      - install -Dm755 assets/startplexamp /app/bin/startplexamp
+      - install -D assets/com.plexamp.Plexamp.desktop -t /app/share/applications/
+      - install -D com.plexamp.Plexamp.metainfo.xml -t /app/share/metainfo/
+      - install -D assets/com.plexamp.Plexamp-512.png /app/share/icons/hicolor/512x512/apps/com.plexamp.Plexamp.png
     sources:
-      - type: git
-        url: https://github.com/refi64/unappimage
-        commit: d7f86f2a0d7ec3a69211125207d5f127386b849a
+      - type: dir
+        path: .
 
-  - name: plexamp
+  - name: Plexamp
     buildsystem: simple
     build-commands:
-      - unappimage Plexamp.AppImage
+      - chmod +x Plexamp*.AppImage
+      - ./Plexamp*.AppImage --appimage-extract
+      - mv squashfs-root app/bin/plexamp
 
-      - for ext in desktop png; do cp "squashfs-root/plexamp.${ext}" "${FLATPAK_ID}.${ext}";
-        done
-      - desktop-file-edit --set-icon "${FLATPAK_ID}" --set-key Exec --set-value 'plexamp-run
-        %u' "${FLATPAK_ID}.desktop"
-
-      - install -D plexamp-run -t "${FLATPAK_DEST}/bin"
-      - install -Dm644 "${FLATPAK_ID}.metainfo.xml" -t "${FLATPAK_DEST}/share/metainfo"
-      - install -Dm644 "${FLATPAK_ID}.desktop"      -t "${FLATPAK_DEST}/share/applications"
-      - install -Dm644 "${FLATPAK_ID}.png"          -t "${FLATPAK_DEST}/share/icons/hicolor/512x512/apps"
-      - mv squashfs-root "${FLATPAK_DEST}/plexamp"
-    cleanup:
-      - Plexamp.AppImage
     sources:
-      - type: script
-        dest-filename: plexamp-run
-        commands:
-          - exec zypak-wrapper /app/plexamp/plexamp --no-sandbox "$@"
       - type: file
-        path: com.plexamp.Plexamp.metainfo.xml
-      - type: file
-        dest-filename: Plexamp.AppImage
         url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.6.2.AppImage
         sha256: b8380cc656b4025c6e4717e209c740335c66d39b411d374dd624c36dcd0845ef
-        x-checker-data:
-          is-main-source: true
-          type: html
+        only-arches: [x86-64]
+        x-data-checker:
+          type: electron-updater
           url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/latest-linux.yml
-          version-pattern: 'path: Plexamp-([\d\.]+)\.AppImage'
-          url-template: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-$version.AppImage
