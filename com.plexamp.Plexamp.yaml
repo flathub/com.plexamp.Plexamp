@@ -24,10 +24,10 @@ modules:
   - name: assets
     buildsystem: simple
     build-commands:
-      - install -Dm755 assets/startplexamp -t "${FLATPAK_DEST}/bin"
-      - install -D com.plexamp.Plexamp.metainfo.xml -t "${FLATPAK_DEST}/share/metainfo"
-      - install -D assets/com.plexamp.Plexamp.desktop -t "${FLATPAK_DEST}/share/applications"
-      - install -D assets/com.plexamp.Plexamp.png -t "${FLATPAK_DEST}/share/icons/hicolor/512x512/apps"
+      - install -Dm755 assets/startplexamp /app/bin/startplexamp
+      - install -D com.plexamp.Plexamp.metainfo.xml -t /app/share/metainfo/
+      - install -D assets/com.plexamp.Plexamp.desktop -t /app/share/applications/
+      - install -D assets/com.plexamp.Plexamp.png /app/share/icons/hicolor/512x512/apps/com.plexamp.Plexamp.png
     sources:
       - type: dir
         path: .
