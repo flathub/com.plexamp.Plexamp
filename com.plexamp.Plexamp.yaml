@@ -39,6 +39,8 @@ modules:
       - install -D assets/com.plexamp.Plexamp-512.png -t "${FLATPAK_DEST}/share/icons/hicolor/512x512/apps"
       - unappimage Plexamp.AppImage
       - mv squashfs-root "${FLATPAK_DEST}/plexamp"
+    cleanup:
+      - Plexamp.AppImage
     sources:
       - type: dir
         path: .
@@ -46,7 +48,6 @@ modules:
         dest-filename: Plexamp.AppImage
         url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.6.2.AppImage
         sha256: b8380cc656b4025c6e4717e209c740335c66d39b411d374dd624c36dcd0845ef
-        only-arches: [x86-64]
         x-data-checker:
           is-main-source: true
           type: electron-updater
