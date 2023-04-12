@@ -47,9 +47,6 @@ modules:
       - unappimage Plexamp.AppImage
       - mv squashfs-root "${FLATPAK_DEST}/plexamp"
 
-    cleanup:
-      - Plexamp.AppImage
-
     sources:
       - type: file
         dest-filename: Plexamp.AppImage
