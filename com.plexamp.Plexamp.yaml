@@ -21,6 +21,16 @@ finish-args:
   - --own-name=org.mpris.MediaPlayer2.Plexamp
 
 modules:
+  - name: assets
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 assets/startplexamp -t "${FLATPAK_DEST}/bin"
+      - install -D com.plexamp.Plexamp.metainfo.xml -t "${FLATPAK_DEST}/share/metainfo"
+      - install -D assets/com.plexamp.Plexamp.desktop -t "${FLATPAK_DEST}/share/applications"
+      - install -D assets/com.plexamp.Plexamp.png -t "${FLATPAK_DEST}/share/icons/hicolor/512x512/apps"
+    - type: dir
+      path: .
+
   - name: unappimage
     buildsystem: simple
     build-commands:
@@ -33,15 +43,9 @@ modules:
   - name: plexamp
     buildsystem: simple
     build-commands:
-      - install -Dm755 assets/startplexamp -t "${FLATPAK_DEST}/bin"
-      - install -D com.plexamp.Plexamp.metainfo.xml -t "${FLATPAK_DEST}/share/metainfo"
-      - install -D assets/com.plexamp.Plexamp.desktop -t "${FLATPAK_DEST}/share/applications"
-      - install -D assets/com.plexamp.Plexamp-512.png -t "${FLATPAK_DEST}/share/icons/hicolor/512x512/apps"
       - unappimage Plexamp.AppImage
       - mv squashfs-root "${FLATPAK_DEST}/plexamp"
     sources:
-      - type: dir
-        path: .
       - type: file
         dest-filename: Plexamp.AppImage
         url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.6.2.AppImage
