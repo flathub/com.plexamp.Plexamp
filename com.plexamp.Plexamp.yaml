@@ -28,8 +28,9 @@ modules:
       - install -D com.plexamp.Plexamp.metainfo.xml -t "${FLATPAK_DEST}/share/metainfo"
       - install -D assets/com.plexamp.Plexamp.desktop -t "${FLATPAK_DEST}/share/applications"
       - install -D assets/com.plexamp.Plexamp.png -t "${FLATPAK_DEST}/share/icons/hicolor/512x512/apps"
-    - type: dir
-      path: .
+    sources:
+      - type: dir
+        path: .
 
   - name: unappimage
     buildsystem: simple
