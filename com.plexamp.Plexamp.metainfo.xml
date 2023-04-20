@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
     <id type="desktop">com.plexamp.Plexamp</id>
-    <launchable type="desktop-id">com.plexamp.Plexamp.desktop</launchable>
     <name>Plexamp</name>
     <summary>Plexamp - A beautiful Plex music player for audiophiles, curators, and hipsters.</summary>
+    <developer_name>Plex</developer_name>
+    <launchable type="desktop-id">com.plexamp.Plexamp.desktop</launchable>
     <metadata_license>CC0-1.0</metadata_license>
     <project_license>LicenseRef-proprietary=https://www.plex.tv/en-gb/about/privacy-legal/plex-terms-of-service/</project_license>
-    <developer_name>Plex</developer_name>
-    <url type="homepage">https://plexamp.com</url>
+    <url type="homepage">https://plex.tv/plexamp</url>
     <url type="help">https://support.plex.tv/articles/</url>
+    <url type="faq">https://www.plex.tv/plexamp#section14</url>
+    <url type="translate">https://explore.transifex.com/plex-1/plex-labs/</url>
     <description>
         <p>★★ You'll need a Plex Media Server and an active Plex Pass to use this app ★★</p>
 
@@ -31,6 +33,8 @@
         <p>Follow us on Twitter @plexamp</p>
     </description>
     <releases>
+        <release version="4.6.2-r2" date="2023-04-12"/>
+        <release version="4.6.2-r1" date="2023-04-12"/>
         <release version="4.6.2" date="2023-02-03"/>
         <release version="4.6.1" date="2022-12-05"/>
         <release version="4.6.0" date="2022-11-29"/>
@@ -110,4 +114,10 @@
 		</screenshot>
     </screenshots>
     <content_rating type="oars-1.1"/>
+    <categories>
+        <category>AudioVideo</category>
+    </categories>
+    <recommends>
+        <internet>always</internet>
+    </recommends>
 </component>
