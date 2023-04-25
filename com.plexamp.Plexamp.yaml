@@ -53,5 +53,7 @@ modules:
         sha256: 4c57abbfb827c5672000cdf67202b646c0afa31faf96536a2500eb7f01e86f9f
         x-checker-data:
           is-main-source: true
-          type: electron-updater
+          type: html
           url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/beta-linux.yml
+          version-pattern: 'path: Plexamp-([\d\.]+-beta\.[\d]+).AppImage'
+          url-template: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-$version.AppImage
