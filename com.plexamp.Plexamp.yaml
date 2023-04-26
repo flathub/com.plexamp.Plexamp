@@ -49,11 +49,8 @@ modules:
     sources:
       - type: file
         dest-filename: Plexamp.AppImage
-        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.7.0-beta.53.AppImage
-        sha256: 4c57abbfb827c5672000cdf67202b646c0afa31faf96536a2500eb7f01e86f9f
+        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.7.0-beta.62.AppImage
+        sha512: RNDh50PBAe6RnTHQWzQXsMq/bMhBfpHR096PMqiiPeZlxXRBeOvwsLFwrpX2DUvlYmprnF0+DI9XoxuiwxcdtA==
         x-checker-data:
-          is-main-source: true
-          type: html
+          type: electron-updater
           url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/beta-linux.yml
-          version-pattern: 'path: Plexamp-([\d\.]+-beta\.[\d]+).AppImage'
-          url-template: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-$version.AppImage
