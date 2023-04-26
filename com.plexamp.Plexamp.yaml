@@ -50,7 +50,7 @@ modules:
       - type: file
         dest-filename: Plexamp.AppImage
         url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.7.0-beta.62.AppImage
-        sha512: RNDh50PBAe6RnTHQWzQXsMq/bMhBfpHR096PMqiiPeZlxXRBeOvwsLFwrpX2DUvlYmprnF0+DI9XoxuiwxcdtA==
+        sha512: 44d0e1e743c101ee919d31d05b3417b0cabf6cc8417e91d1d3de8f32a8a23de665c5744178ebf0b0b170ae95f60d4be5626a6b9c5d3e0c8f57a31ba2c3171db4
         x-checker-data:
           type: electron-updater
           url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/beta-linux.yml
