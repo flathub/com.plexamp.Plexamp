@@ -1,11 +1,11 @@
 app-id: com.plexamp.Plexamp
 
 runtime: org.freedesktop.Platform
-runtime-version: "21.08"
+runtime-version: '21.08'
 sdk: org.freedesktop.Sdk
 
 base: org.electronjs.Electron2.BaseApp
-base-version: "21.08"
+base-version: '21.08'
 
 command: startplexamp
 separate-locales: false
@@ -49,8 +49,8 @@ modules:
     sources:
       - type: file
         dest-filename: Plexamp.AppImage
-        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.6.2.AppImage
-        sha256: b8380cc656b4025c6e4717e209c740335c66d39b411d374dd624c36dcd0845ef
+        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.7.0.AppImage
+        sha256: 84753d62f8041c421866508ca215719102712cd00c523636fce4f0f466cb26c6
         x-checker-data:
           is-main-source: true
           type: electron-updater
