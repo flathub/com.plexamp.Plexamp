@@ -8,13 +8,6 @@ if [[ "${XDG_SESSION_TYPE,,}" = "wayland" ]]; then
     echo "WAYLAND enabled, using the Wayland Electron backend"
     FEATURES="$FEATURES,UseOzonePlatform,WaylandWindowDecorations"
     FLAGS+=(-ozone-platform=wayland)
-
-    # Just your normal NVIDIA things
-    if [[ -c /dev/nvidia0 ]]; then
-        echo "Using NVIDIA on Wayland, applying workaround"
-        FLAGS+=(--disable-gpu-sandbox)
-    fi
-
 fi
 
 FLAGS+=(--enable-features="${FEATURES}")
