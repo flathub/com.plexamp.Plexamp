@@ -2,15 +2,22 @@
 
 FEATURES="UseSkiaRenderer"
 TMPDIR="$XDG_RUNTIME_DIR/app/${FLATPAK_ID:-com.plexamp.Plexamp}"
-declare -a FLAGS=(--enable-gpu-rasterization --enable-zero-copy --enable-gpu-compositing --enable-native-gpu-memory-buffers --enable-oop-rasterization)
+declare -a FLAGS=(--enable-gpu-rasterization --enable-zero-copy --enable-gpu-compositing --enable-native-gpu-memory-buffers --enable-oop-rasterization --disable-gpu-blocklist)
 
-if [[ "${XDG_SESSION_TYPE,,}" = "wayland" ]]; then
-    echo "WAYLAND enabled, using the Wayland Electron backend"
-    FEATURES="$FEATURES,UseOzonePlatform,WaylandWindowDecorations"
-    FLAGS+=(-ozone-platform=wayland)
+if [[ $XDG_SESSION_TYPE == "wayland" ]]
+then
+    WAYLAND_SOCKET=${WAYLAND_DISPLAY:-"wayland-0"}
 
-    # Just your normal NVIDIA things
-    if [[ -c /dev/nvidia0 ]]; then
+    if [[ -e "$XDG_RUNTIME_DIR/${WAYLAND_SOCKET}" ]]
+    then
+        echo "Wayland socket is available, running natively on Wayland."
+        echo "To disable, remove the --socket=wayland permission."
+        FLAGS+=(--ozone-platform=wayland)
+    else
+        echo "Wayland socket not available, running through Xwayland."
+    fi
+    if [[ -c /dev/nvidia0 ]]
+    then
         echo "Using NVIDIA on Wayland, applying workaround"
         FLAGS+=(--disable-gpu-sandbox)
     fi
