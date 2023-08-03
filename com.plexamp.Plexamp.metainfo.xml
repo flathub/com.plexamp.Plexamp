@@ -33,6 +33,7 @@
         <p>Follow us on Twitter @plexamp</p>
     </description>
     <releases>
+        <release version="4.8.2" date="2023-08-03"/>
         <release version="4.8.1" date="2023-07-23"/>
         <release version="4.8.0-r1" date="2023-07-19"/>
         <release version="4.8.0" date="2023-07-18"/>
