@@ -49,8 +49,8 @@ modules:
     sources:
       - type: file
         dest-filename: Plexamp.AppImage
-        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.8.3-beta.13.AppImage
-        sha256: 3bcf11d971b95c5b084f3a712d5c19743d1355d9e1c79c7106ccdf71b05fe541
+        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.8.3-beta.15.AppImage
+        sha256: ff044ee3b22a177d769e23d69c9858d0fb3588718dafb272818ddd50db8e6b87
         x-checker-data:
           is-main-source: true
           type: electron-updater
