@@ -5,7 +5,7 @@ runtime-version: "21.08"
 sdk: org.freedesktop.Sdk
 
 base: org.electronjs.Electron2.BaseApp
-base-version: "21.08"
+base-version: "22.08"
 
 command: startplexamp
 separate-locales: false
