@@ -12,13 +12,13 @@ separate-locales: false
 
 finish-args:
   - --socket=pulseaudio
-  - --socket=wayland
   - --socket=x11
   - --share=ipc
   - --share=network
-  - --device=dri
-  - --talk-name=org.freedesktop.Notifications
+  - --device=dri # Needed for GPU acceleration
+  - --talk-name=org.freedesktop.Notifications # for optional 'now playing' notifications
   - --own-name=org.mpris.MediaPlayer2.Plexamp
+  - --env=XCURSOR_PATH=/run/host/user-share/icons:/run/host/share/icons # This is used to show the correct cursor on Wayland
 
 modules:
   - name: assets
@@ -27,31 +27,23 @@ modules:
       - install -Dm755 assets/startplexamp /app/bin/startplexamp
       - install -D com.plexamp.Plexamp.metainfo.xml -t /app/share/metainfo/
       - install -D assets/com.plexamp.Plexamp.desktop -t /app/share/applications/
-      - install -D assets/com.plexamp.Plexamp.png /app/share/icons/hicolor/512x512/apps/com.plexamp.Plexamp.png
     sources:
       - type: dir
         path: .
 
-  - name: unappimage
+  - name: Plexamp
     buildsystem: simple
     build-commands:
-      - make -C squashfs-tools -j ${FLATPAK_BUILDER_N_JOBS} install INSTALL_DIR=${FLATPAK_DEST}/bin
-    sources:
-      - type: git
-        url: https://github.com/refi64/unappimage
-        commit: d7f86f2a0d7ec3a69211125207d5f127386b849a
-
-  - name: plexamp
-    buildsystem: simple
-    build-commands:
-      - unappimage Plexamp.AppImage
+      - chmod +x Plexamp*.AppImage
+      - ./Plexamp*.AppImage --appimage-extract
+      - install -D squashfs-root/plexamp.png /app/share/icons/hicolor/512x512/apps/com.plexamp.Plexamp.png
       - mv squashfs-root /app/bin/plexamp
+
     sources:
       - type: file
-        dest-filename: Plexamp.AppImage
-        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.9.2-beta.1.AppImage
-        sha256: 5dc035f51ca69a2697e5caf22bde29900d5900fd8eb6fe8c3add48a41e970d09
+        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.9.3-beta.4.AppImage
+        sha512: 06dd8bf3f0c9b7b2f1022464b36933c84ce8e3c8b99310ae87f7a813866bcbe56088a7b061ce2d46310392b6d3349b60215a7c115947a11fb07ce33cfffd4224
+        only-arches: [x86_64]
         x-checker-data:
-          is-main-source: true
           type: electron-updater
           url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/beta-linux.yml
