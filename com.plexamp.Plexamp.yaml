@@ -19,7 +19,6 @@ finish-args:
   - --device=dri
   - --talk-name=org.freedesktop.Notifications
   - --own-name=org.mpris.MediaPlayer2.Plexamp
-  - --env=XCURSOR_PATH=/run/host/user-share/icons:/run/host/share/icons # This is used to show the correct cursor on Wayland
 
 modules:
   - name: assets
