@@ -1,11 +1,11 @@
 app-id: com.plexamp.Plexamp
 
 runtime: org.freedesktop.Platform
-runtime-version: '21.08'
+runtime-version: '23.08'
 sdk: org.freedesktop.Sdk
 
 base: org.electronjs.Electron2.BaseApp
-base-version: '21.08'
+base-version: '23.08'
 
 command: startplexamp
 separate-locales: false
@@ -30,6 +30,8 @@ modules:
     sources:
       - type: dir
         path: .
+
+  - openssl-1.1.yaml
 
   - name: Plexamp
     buildsystem: simple
