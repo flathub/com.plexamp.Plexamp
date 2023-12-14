@@ -19,6 +19,7 @@ finish-args:
   - --device=dri
   - --talk-name=org.freedesktop.Notifications
   - --own-name=org.mpris.MediaPlayer2.Plexamp
+  - --env=XCURSOR_PATH=/run/host/user-share/icons:/run/host/share/icons # This is used to show the correct cursor on Wayland
 
 modules:
   - name: assets
@@ -27,28 +28,19 @@ modules:
       - install -Dm755 assets/startplexamp /app/bin/startplexamp
       - install -D com.plexamp.Plexamp.metainfo.xml -t /app/share/metainfo/
       - install -D assets/com.plexamp.Plexamp.desktop -t /app/share/applications/
-      - install -D assets/com.plexamp.Plexamp.png /app/share/icons/hicolor/512x512/apps/com.plexamp.Plexamp.png
     sources:
       - type: dir
         path: .
 
-  - name: unappimage
+  - name: Plexamp
     buildsystem: simple
     build-commands:
-      - make -C squashfs-tools -j ${FLATPAK_BUILDER_N_JOBS} install INSTALL_DIR=${FLATPAK_DEST}/bin
-    sources:
-      - type: git
-        url: https://github.com/refi64/unappimage
-        commit: d7f86f2a0d7ec3a69211125207d5f127386b849a
-
-  - name: plexamp
-    buildsystem: simple
-    build-commands:
-      - unappimage Plexamp.AppImage
+      - chmod +x Plexamp*.AppImage
+      - ./Plexamp*.AppImage --appimage-extract
+      - install -D squashfs-root/plexamp.png /app/share/icons/hicolor/512x512/apps/com.plexamp.Plexamp.png
       - mv squashfs-root /app/bin/plexamp
     sources:
       - type: file
-        dest-filename: Plexamp.AppImage
         url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.9.1.AppImage
         sha256: 4fecc0eed22a320138b7306419f7f5fa102715a27ac6e17ecc0fe52bd9ef6790
         x-checker-data:
