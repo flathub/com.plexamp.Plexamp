@@ -40,8 +40,8 @@ modules:
       - mv squashfs-root /app/bin/plexamp
     sources:
       - type: file
-        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.9.1.AppImage
-        sha256: 4fecc0eed22a320138b7306419f7f5fa102715a27ac6e17ecc0fe52bd9ef6790
+        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.9.3.AppImage
+        sha256: 9c1c6df9fb59e30d441da52441aec569d91fbee326524b2d6975f17bf2eb769c
         x-checker-data:
           is-main-source: true
           type: electron-updater
