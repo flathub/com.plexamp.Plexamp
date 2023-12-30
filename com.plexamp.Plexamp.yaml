@@ -1,24 +1,24 @@
 app-id: com.plexamp.Plexamp
 
 runtime: org.freedesktop.Platform
-runtime-version: "21.08"
+runtime-version: "23.08"
 sdk: org.freedesktop.Sdk
 
 base: org.electronjs.Electron2.BaseApp
-base-version: "21.08"
+base-version: "23.08"
 
 command: startplexamp
 separate-locales: false
 
 finish-args:
   - --socket=pulseaudio
+  - --socket=wayland
   - --socket=x11
   - --share=ipc
   - --share=network
   - --device=dri # Needed for GPU acceleration
   - --talk-name=org.freedesktop.Notifications # for optional 'now playing' notifications
   - --own-name=org.mpris.MediaPlayer2.Plexamp
-  - --env=XCURSOR_PATH=/run/host/user-share/icons:/run/host/share/icons # This is used to show the correct cursor on Wayland
 
 modules:
   - name: assets
@@ -36,14 +36,29 @@ modules:
     build-commands:
       - chmod +x Plexamp*.AppImage
       - ./Plexamp*.AppImage --appimage-extract
-      - install -D squashfs-root/plexamp.png /app/share/icons/hicolor/512x512/apps/com.plexamp.Plexamp.png
-      - mv squashfs-root /app/bin/plexamp
+      # Move icons into place:
+      - find squashfs-root/usr/share/ -name plexamp.png -execdir mv '{}' ./com.plexamp.Plexamp.png \;
+      - cp -rv squashfs-root/usr/share "${FLATPAK_DEST}/" && rm -rf squashfs-root/usr/share squashfs-root/plexamp.png
+      # Seem to be leftovers from the build system:
+      - find squashfs-root -depth \( -name .deps -o -name obj.target \) -exec rm -rfv '{}' \;
+      # Move everything else:
+      - mv squashfs-root "${FLATPAK_DEST}/bin/plexamp"
 
     sources:
       - type: file
-        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.9.3-beta.10.AppImage
-        sha512: 44d39a214694867b9f5bd71579557fbe4f72912f9af7bdee1b26c44add654e373d949a72e330dcaeacce1a02fafb88260777fac8560da949ce32ee54a4600dcb
+        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.9.4-beta.3.AppImage
+        sha512: 7a88fc39a51204f7404344fd3148959b56b8d021ae736b5633a4c61f859c99f5f603c293776fc87e6eb6dc29d6e034ffb0147be39ace48b71632506dc1fbadbd
         only-arches: [x86_64]
         x-checker-data:
+          is-main-source: true
           type: electron-updater
           url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/beta-linux.yml
+    cleanup:
+      # Config for the self-updater?
+      # Manages to crash something, but the flatpak can't self-update, anyway.
+      - app-update.yml
+      - cacert.pem
+      # Custom desktop file used instead.
+      - plexamp.desktop
+      # Seems to have the unpacked version next to it, but plexamp gets grumpy when removed.
+      #- app.asar
