@@ -19,6 +19,7 @@ finish-args:
   - --device=dri # Needed for GPU acceleration
   - --talk-name=org.freedesktop.Notifications # for optional 'now playing' notifications
   - --own-name=org.mpris.MediaPlayer2.Plexamp
+  - --env=XCURSOR_PATH=/run/host/user-share/icons:/run/host/share/icons # This is used to show the correct cursor on Wayland
 
 modules:
   - name: assets
@@ -46,8 +47,8 @@ modules:
 
     sources:
       - type: file
-        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.9.4-beta.3.AppImage
-        sha512: 7a88fc39a51204f7404344fd3148959b56b8d021ae736b5633a4c61f859c99f5f603c293776fc87e6eb6dc29d6e034ffb0147be39ace48b71632506dc1fbadbd
+        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.9.4-beta.4.AppImage
+        sha512: 58246ee2189467304626b1609dd7a117bc42d2fb3422414ac59070004e1198dc16e890894b181c1a987c5129ef0218d667364d53d5afbb0ae755c0461ff58b7f
         only-arches: [x86_64]
         x-checker-data:
           is-main-source: true
