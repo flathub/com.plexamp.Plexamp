@@ -1,11 +1,11 @@
 app-id: com.plexamp.Plexamp
 
 runtime: org.freedesktop.Platform
-runtime-version: "23.08"
+runtime-version: "21.08"
 sdk: org.freedesktop.Sdk
 
 base: org.electronjs.Electron2.BaseApp
-base-version: "23.08"
+base-version: "21.08"
 
 command: startplexamp
 separate-locales: false
@@ -54,12 +54,3 @@ modules:
           is-main-source: true
           type: electron-updater
           url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/beta-linux.yml
-    cleanup:
-      # Config for the self-updater?
-      # Manages to crash something, but the flatpak can't self-update, anyway.
-      - app-update.yml
-      - cacert.pem
-      # Custom desktop file used instead.
-      - plexamp.desktop
-      # Seems to have the unpacked version next to it, but plexamp gets grumpy when removed.
-      #- app.asar
