@@ -5,5 +5,5 @@ Terminal=false
 Type=Application
 Icon=com.plexamp.Plexamp
 StartupWMClass=plexamp
-Comment=The best little audio player on the planet
+Comment=Beautiful music player for Plex
 Categories=AudioVideo;
