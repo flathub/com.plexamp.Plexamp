@@ -36,8 +36,8 @@ modules:
       - chmod +x Plexamp*.AppImage
       - ./Plexamp*.AppImage --appimage-extract
       # Move icons into place:
-      - find squashfs-root/usr/share/ -name plexamp.png -execdir mv '{}' ./com.plexamp.Plexamp.png \;
-      - cp -rv squashfs-root/usr/share "${FLATPAK_DEST}/" && rm -rf squashfs-root/usr/share squashfs-root/plexamp.png
+      - find squashfs-root/usr/share/ -name plexamp.svg -execdir mv '{}' ./com.plexamp.Plexamp.svg \;
+      - cp -rv squashfs-root/usr/share "${FLATPAK_DEST}/" && rm -rf squashfs-root/usr/share squashfs-root/plexamp.svg
       # Seem to be leftovers from the build system:
       - find squashfs-root -depth \( -name .deps -o -name obj.target \) -exec rm -rfv '{}' \;
       # Move everything else:
