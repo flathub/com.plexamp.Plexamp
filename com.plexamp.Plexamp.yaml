@@ -1,23 +1,22 @@
 app-id: com.plexamp.Plexamp
 
 runtime: org.freedesktop.Platform
-runtime-version: '21.08'
+runtime-version: "21.08"
 sdk: org.freedesktop.Sdk
 
 base: org.electronjs.Electron2.BaseApp
-base-version: '21.08'
+base-version: "21.08"
 
 command: startplexamp
 separate-locales: false
 
 finish-args:
   - --socket=pulseaudio
-  - --socket=wayland
   - --socket=x11
   - --share=ipc
   - --share=network
-  - --device=dri
-  - --talk-name=org.freedesktop.Notifications
+  - --device=dri # Needed for GPU acceleration
+  - --talk-name=org.freedesktop.Notifications # for optional 'now playing' notifications
   - --own-name=org.mpris.MediaPlayer2.Plexamp
 
 modules:
@@ -27,6 +26,7 @@ modules:
       - install -Dm755 assets/startplexamp /app/bin/startplexamp
       - install -D com.plexamp.Plexamp.metainfo.xml -t /app/share/metainfo/
       - install -D assets/com.plexamp.Plexamp.desktop -t /app/share/applications/
+      - install -D assets/com.plexamp.Plexamp.svg /app/share/icons/hicolor/512x512/apps/com.plexamp.Plexamp.svg
     sources:
       - type: dir
         path: .
@@ -36,7 +36,6 @@ modules:
     build-commands:
       - chmod +x Plexamp*.AppImage
       - ./Plexamp*.AppImage --appimage-extract
-      - install -D squashfs-root/plexamp.png /app/share/icons/hicolor/512x512/apps/com.plexamp.Plexamp.png
       - mv squashfs-root /app/bin/plexamp
     sources:
       - type: file
