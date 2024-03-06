@@ -12,14 +12,12 @@ separate-locales: false
 
 finish-args:
   - --socket=pulseaudio
-  - --socket=wayland
   - --socket=x11
   - --share=ipc
   - --share=network
   - --device=dri # Needed for GPU acceleration
   - --talk-name=org.freedesktop.Notifications # for optional 'now playing' notifications
   - --own-name=org.mpris.MediaPlayer2.Plexamp
-  - --env=XCURSOR_PATH=/run/host/user-share/icons:/run/host/share/icons # This is used to show the correct cursor on Wayland
 
 modules:
   - name: assets
