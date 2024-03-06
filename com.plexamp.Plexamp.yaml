@@ -26,6 +26,7 @@ modules:
       - install -Dm755 assets/startplexamp /app/bin/startplexamp
       - install -D com.plexamp.Plexamp.metainfo.xml -t /app/share/metainfo/
       - install -D assets/com.plexamp.Plexamp.desktop -t /app/share/applications/
+      - install -D assets/com.plexamp.Plexamp.svg /app/share/icons/hicolor/512x512/apps/com.plexamp.Plexamp.svg
     sources:
       - type: dir
         path: .
@@ -35,9 +36,6 @@ modules:
     build-commands:
       - chmod +x Plexamp*.AppImage
       - ./Plexamp*.AppImage --appimage-extract
-      # Move icons into place:
-      - find squashfs-root/usr/share/ -name plexamp.png -execdir mv '{}' ./com.plexamp.Plexamp.png \;
-      - cp -rv squashfs-root/usr/share "${FLATPAK_DEST}/" && rm -rf squashfs-root/usr/share squashfs-root/plexamp.png
       # Seem to be leftovers from the build system:
       - find squashfs-root -depth \( -name .deps -o -name obj.target \) -exec rm -rfv '{}' \;
       # Move everything else:
@@ -45,8 +43,8 @@ modules:
 
     sources:
       - type: file
-        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.10.0-beta.31.AppImage
-        sha512: 8b0c163f763a55a25dd8137fa806759d4acb8649be1368032a6f7c33675113b5d65837e7ba4f4bd8679a659fcf3e6622752502414c8a21737bb8e291a6346b3b
+        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.10.0-beta.38.AppImage
+        sha512: 7c53daf30bc534e628f97f2e608de1b0707c48fad898603b3bc091539fade66c8d2525bf7242efcb111f3dfefd6c0dbed9797de7ce8c1b6ab60872a47e8e22ca
         only-arches: [x86_64]
         x-checker-data:
           is-main-source: true
