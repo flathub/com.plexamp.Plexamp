@@ -26,6 +26,7 @@ modules:
       - install -Dm755 assets/startplexamp /app/bin/startplexamp
       - install -D com.plexamp.Plexamp.metainfo.xml -t /app/share/metainfo/
       - install -D assets/com.plexamp.Plexamp.desktop -t /app/share/applications/
+      - install -D assets/com.plexamp.Plexamp.svg /app/share/icons/hicolor/512x512/apps/com.plexamp.Plexamp.svg
     sources:
       - type: dir
         path: .
@@ -35,9 +36,6 @@ modules:
     build-commands:
       - chmod +x Plexamp*.AppImage
       - ./Plexamp*.AppImage --appimage-extract
-      # Move icons into place:
-      - find squashfs-root/usr/share/ -name plexamp.svg -execdir mv '{}' ./com.plexamp.Plexamp.svg \;
-      - cp -rv squashfs-root/usr/share "${FLATPAK_DEST}/" && rm -rf squashfs-root/usr/share squashfs-root/plexamp.svg
       # Seem to be leftovers from the build system:
       - find squashfs-root -depth \( -name .deps -o -name obj.target \) -exec rm -rfv '{}' \;
       # Move everything else:
