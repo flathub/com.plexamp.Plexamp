@@ -1,11 +1,11 @@
 app-id: com.plexamp.Plexamp
 
 runtime: org.freedesktop.Platform
-runtime-version: "21.08"
+runtime-version: '21.08'
 sdk: org.freedesktop.Sdk
 
 base: org.electronjs.Electron2.BaseApp
-base-version: "21.08"
+base-version: '21.08'
 
 command: startplexamp
 separate-locales: false
@@ -39,8 +39,8 @@ modules:
       - mv squashfs-root /app/bin/plexamp
     sources:
       - type: file
-        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.9.5.AppImage
-        sha256: f816ab7abfa89b4851b6825dabb55276f94eed7f74a606beb2122f8a267e4141
+        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.10.0.AppImage
+        sha256: 0cec809dcdaf29190043dc74c005fbb9c73a004adb02171ca1b27a4e7c7900f5
         x-checker-data:
           is-main-source: true
           type: electron-updater
