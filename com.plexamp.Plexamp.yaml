@@ -1,11 +1,11 @@
 app-id: com.plexamp.Plexamp
 
 runtime: org.freedesktop.Platform
-runtime-version: '21.08'
+runtime-version: "23.08"
 sdk: org.freedesktop.Sdk
 
 base: org.electronjs.Electron2.BaseApp
-base-version: '21.08'
+base-version: "23.08"
 
 command: startplexamp
 separate-locales: false
@@ -36,7 +36,10 @@ modules:
     build-commands:
       - chmod +x Plexamp*.AppImage
       - ./Plexamp*.AppImage --appimage-extract
-      - mv squashfs-root /app/bin/plexamp
+      # Seem to be leftovers from the build system:
+      - find squashfs-root -depth \( -name .deps -o -name obj.target \) -exec rm -rfv '{}' \;
+      # Move everything else:
+      - mv squashfs-root "${FLATPAK_DEST}/bin/plexamp"
     sources:
       - type: file
         url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.10.0.AppImage
