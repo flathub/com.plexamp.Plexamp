@@ -33,6 +33,7 @@
         <p>ENTERPRISE CLASS CUSTOMER RELATIONSHIP MANAGEMENT: Just kidding. It's a music player.</p>
     </description>
     <releases>
+        <release version="4.10.2 beta 34" date="2024-06-04"/>
         <release version="4.10.2 beta 22" date="2024-05-02"/>
         <release version="4.10.2 beta 21" date="2024-05-01"/>
         <release version="4.10.2 beta 19" date="2024-04-30"/>
