@@ -26,7 +26,7 @@ modules:
       - install -Dm755 assets/startplexamp /app/bin/startplexamp
       - install -D com.plexamp.Plexamp.metainfo.xml -t /app/share/metainfo/
       - install -D assets/com.plexamp.Plexamp.desktop -t /app/share/applications/
-      - install -D assets/com.plexamp.Plexamp.svg /app/share/icons/hicolor/512x512/apps/com.plexamp.Plexamp.svg
+      - install -D assets/com.plexamp.Plexamp.svg /app/share/icons/hicolor/scalable/apps/com.plexamp.Plexamp.svg
     sources:
       - type: dir
         path: .
@@ -43,8 +43,8 @@ modules:
       - mv squashfs-root "${FLATPAK_DEST}/bin/plexamp"
     sources:
       - type: file
-        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.10.1.AppImage
-        sha256: 8e5029911a544261e0371523eecee47af1e510dd06a96562198005c191a20cb9
+        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.11.0.AppImage
+        sha256: b7a889f2691cc67e615322e35abae62d58ee4e0304ebbc30800d62e214d32fe8
         x-checker-data:
           is-main-source: true
           type: electron-updater
