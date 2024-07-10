@@ -26,7 +26,7 @@ modules:
       - install -Dm755 assets/startplexamp /app/bin/startplexamp
       - install -D com.plexamp.Plexamp.metainfo.xml -t /app/share/metainfo/
       - install -D assets/com.plexamp.Plexamp.desktop -t /app/share/applications/
-      - install -D assets/com.plexamp.Plexamp.svg /app/share/icons/hicolor/512x512/apps/com.plexamp.Plexamp.svg
+      - install -D assets/com.plexamp.Plexamp.svg /app/share/icons/hicolor/scalable/apps/com.plexamp.Plexamp.svg
     sources:
       - type: dir
         path: .
