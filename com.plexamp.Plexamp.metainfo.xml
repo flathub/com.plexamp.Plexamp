@@ -26,7 +26,7 @@
 
     <description>
         <p>
-            Plexamp is the answer to the question &quot;what would happen if you gave a handful of Plex music and pixel nerds a few cocktails and free rein to create the app of their dreams?&quot;
+            Plexamp is the answer to the question "what would happen if you gave a handful of Plex music and pixel nerds a few cocktails and free rein to create the app of their dreams?"
         </p>
         <p>
             Plexamp is a beautiful, dedicated Plex music player with tons of goodies for audiophile purists, music curators, and music fans of all ages looking for their next aural fix.
@@ -35,19 +35,19 @@
             SUPER AUDIO PLAYER: Loudness leveling, true gapless playback, Sweet Fades™, soft transitions, a configurable preamp, a 10-band EQ, and more. Perfection for golden ears, buttery smooth touches for the rest of us. Custom pre-caching so your music keeps playing, because sometimes life brings you through tunnels.
         </p>
         <p>
-            MUSIC TO YOUR EYES: Experience your music collection like you&apos;ve never seen it before, with our UltraBlur backgrounds, over a dozen hypnotic visualizers, and four visual themes to satisfy every taste.
+            MUSIC TO YOUR EYES: Experience your music collection like you've never seen it before, with our UltraBlur backgrounds, over a dozen hypnotic visualizers, and four visual themes to satisfy every taste.
         </p>
         <p>
-            FIND YOUR FIX: Radios built from your library and your cooler friends&apos; collections. Travel through time, pick a style or mood, or listen album-by-album like the purist you are. Use the Mix Builder to explore and craft your perfect blend. Explore your personal charts and see what you were into last Fall or your top albums from the 60s.
+            FIND YOUR FIX: Radios built from your library and your cooler friends' collections. Travel through time, pick a style or mood, or listen album-by-album like the purist you are. Use the Mix Builder to explore and craft your perfect blend. Explore your personal charts and see what you were into last Fall or your top albums from the 60s.
         </p>
         <p>
-            OFFLINE BLISS: Grab a few hours of your favorite playlist or stations with just a few taps. Download a custom mix or artist radio for the plane. Simple but powerful offline support for when you&apos;re in the woods or run out of cellular data.
+            OFFLINE BLISS: Grab a few hours of your favorite playlist or stations with just a few taps. Download a custom mix or artist radio for the plane. Simple but powerful offline support for when you're in the woods or run out of cellular data.
         </p>
         <p>
-            IT&apos;S THE LITTLE THINGS: Powerful search. Playback activity history. Swipe-up play queue peeking. Fun artist explorations. As many settings and tweaks as our resident UXpert let us add.
+            IT'S THE LITTLE THINGS: Powerful search. Playback activity history. Swipe-up play queue peeking. Fun artist explorations. As many settings and tweaks as our resident UXpert let us add.
         </p>
         <p>
-            ENTERPRISE CLASS CUSTOMER RELATIONSHIP MANAGEMENT: Just kidding. It&apos;s a music player.
+            ENTERPRISE CLASS CUSTOMER RELATIONSHIP MANAGEMENT: Just kidding. It's a music player.
         </p>
     </description>
 
@@ -97,6 +97,9 @@
     </screenshots>
     
     <releases>
+        <release version="4.11.1-beta.3" date="2024-07-11">
+            <description></description>
+        </release>
         <release version="4.11.1 beta 2" date="2024-07-11"/>
         <release version="4.10.2 beta 34" date="2024-06-04"/>
         <release version="4.10.2 beta 22" date="2024-05-02"/>
