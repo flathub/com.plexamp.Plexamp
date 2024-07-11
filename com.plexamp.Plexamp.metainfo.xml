@@ -1,38 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-    <id type="desktop">com.plexamp.Plexamp</id>
+    <id>com.plexamp.Plexamp</id>
+    <launchable type="desktop-id">com.plexamp.Plexamp.desktop</launchable>
+
+    <metadata_license>CC0-1.0</metadata_license>
+    <project_license>LicenseRef-proprietary=https://www.plex.tv/about/privacy-legal/</project_license>
+
     <name>Plexamp</name>
     <summary>Beautiful music player for Plex</summary>
-    <developer_name>Plex</developer_name>
-    <launchable type="desktop-id">com.plexamp.Plexamp.desktop</launchable>
-    <metadata_license>CC0-1.0</metadata_license>
-    <project_license>LicenseRef-proprietary=https://www.plex.tv/en-gb/about/privacy-legal/plex-terms-of-service/</project_license>
-    <url type="homepage">https://plex.tv/plexamp</url>
-    <url type="help">https://support.plex.tv/articles/</url>
-    <url type="faq">https://www.plex.tv/plexamp#section14</url>
-    <url type="translate">https://explore.transifex.com/plex-1/plex-labs/</url>
+
+    <developer id="tv.plex">
+        <name>Plex</name>
+    </developer>
+
     <branding>
         <color type="primary" scheme_preference="light">#97B4E2</color>
         <color type="primary" scheme_preference="dark">#322D5B</color>
     </branding>
+
+    <url type="homepage">https://plex.tv/plexamp</url>
+    <url type="contact">https://www.plex.tv/contact/</url>
+    <url type="help">https://support.plex.tv/articles/</url>
+    <url type="faq">https://www.plex.tv/plexamp#section16</url>
+    <url type="translate">https://explore.transifex.com/plex-1/plex-labs/</url>
+
     <description>
-        <p>Plexamp is the answer to the question "what would happen if you gave a handful of Plex music and pixel nerds a few cocktails and free rein to create the app of their dreams?"</p>
-
-        <p>Plexamp is a beautiful, dedicated Plex music player with tons of goodies for audiophile purists, music curators, and music fans of all ages looking for their next aural fix.</p>
-
-        <p>SUPER AUDIO PLAYER: Loudness leveling, true gapless playback, Sweet Fades™, soft transitions, a configurable preamp, a 10-band EQ, and more. Perfection for golden ears, buttery smooth touches for the rest of us. Custom pre-caching so your music keeps playing, because sometimes life brings you through tunnels.</p>
-
-        <p>MUSIC TO YOUR EYES: Experience your music collection like you've never seen it before, with our UltraBlur backgrounds, over a dozen hypnotic visualizers, and four visual themes to satisfy every taste.</p>
-
-        <p>FIND YOUR FIX: Radios built from your library and your cooler friends' collections. Travel through time, pick a style or mood, or listen album-by-album like the purist you are. Use the Mix Builder to explore and craft your perfect blend. Explore your personal charts and see what you were into last Fall or your top albums from the 60s.</p>
-
-        <p>OFFLINE BLISS: Grab a few hours of your favorite playlist or stations with just a few taps. Download a custom mix or artist radio for the plane. Simple but powerful offline support for when you're in the woods or run out of cellular data.</p>
-
-        <p>IT'S THE LITTLE THINGS: Powerful search. Playback activity history. Swipe-up play queue peeking. Fun artist explorations. As many settings and tweaks as our resident UXpert let us add.</p>
-
-        <p>ENTERPRISE CLASS CUSTOMER RELATIONSHIP MANAGEMENT: Just kidding. It's a music player.</p>
+        <p>
+            Plexamp is the answer to the question &quot;what would happen if you gave a handful of Plex music and pixel nerds a few cocktails and free rein to create the app of their dreams?&quot;
+        </p>
+        <p>
+            Plexamp is a beautiful, dedicated Plex music player with tons of goodies for audiophile purists, music curators, and music fans of all ages looking for their next aural fix.
+        </p>
+        <p>
+            SUPER AUDIO PLAYER: Loudness leveling, true gapless playback, Sweet Fades™, soft transitions, a configurable preamp, a 10-band EQ, and more. Perfection for golden ears, buttery smooth touches for the rest of us. Custom pre-caching so your music keeps playing, because sometimes life brings you through tunnels.
+        </p>
+        <p>
+            MUSIC TO YOUR EYES: Experience your music collection like you&apos;ve never seen it before, with our UltraBlur backgrounds, over a dozen hypnotic visualizers, and four visual themes to satisfy every taste.
+        </p>
+        <p>
+            FIND YOUR FIX: Radios built from your library and your cooler friends&apos; collections. Travel through time, pick a style or mood, or listen album-by-album like the purist you are. Use the Mix Builder to explore and craft your perfect blend. Explore your personal charts and see what you were into last Fall or your top albums from the 60s.
+        </p>
+        <p>
+            OFFLINE BLISS: Grab a few hours of your favorite playlist or stations with just a few taps. Download a custom mix or artist radio for the plane. Simple but powerful offline support for when you&apos;re in the woods or run out of cellular data.
+        </p>
+        <p>
+            IT&apos;S THE LITTLE THINGS: Powerful search. Playback activity history. Swipe-up play queue peeking. Fun artist explorations. As many settings and tweaks as our resident UXpert let us add.
+        </p>
+        <p>
+            ENTERPRISE CLASS CUSTOMER RELATIONSHIP MANAGEMENT: Just kidding. It&apos;s a music player.
+        </p>
     </description>
+
+    <screenshots>
+		<screenshot type="default">
+			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/1-player1.png</image>
+		</screenshot>
+		<screenshot>
+			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/2-artist_details.png</image>
+		</screenshot>
+		<screenshot>
+			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/3-player_vis1.png</image>
+		</screenshot>
+		<screenshot>
+			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/4-mix_builder.png</image>
+		</screenshot>
+		<screenshot>
+			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/5-player_vis2.png</image>
+		</screenshot>
+		<screenshot>
+			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/6-album_details.png</image>
+		</screenshot>
+		<screenshot>
+			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/7-home_screen.png</image>
+		</screenshot>
+		<screenshot>
+			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/8-player_related.png</image>
+		</screenshot>
+		<screenshot>
+			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/9-player2.png</image>
+		</screenshot>
+		<screenshot>
+			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/10-sonic_adventure.png</image>
+		</screenshot>
+		<screenshot>
+			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/11-moods.png</image>
+		</screenshot>
+		<screenshot>
+			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/12-player_vis3.png</image>
+		</screenshot>
+		<screenshot>
+			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/13-player3.png</image>
+		</screenshot>
+		<screenshot>
+			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/14-top_albums.png</image>
+		</screenshot>
+    </screenshots>
+    
     <releases>
+        <release version="4.11.1 beta 2" date="2024-07-11"/>
         <release version="4.10.2 beta 34" date="2024-06-04"/>
         <release version="4.10.2 beta 22" date="2024-05-02"/>
         <release version="4.10.2 beta 21" date="2024-05-01"/>
@@ -86,54 +151,15 @@
         <release version="4.7.3 beta 3" date="2023-05-09"/>
         <release version="4.7.3" date="2023-05-08"/>
     </releases>
-    <screenshots>
-		<screenshot type="default">
-			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/1-player1.png</image>
-		</screenshot>
-		<screenshot>
-			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/2-artist_details.png</image>
-		</screenshot>
-		<screenshot>
-			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/3-player_vis1.png</image>
-		</screenshot>
-		<screenshot>
-			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/4-mix_builder.png</image>
-		</screenshot>
-		<screenshot>
-			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/5-player_vis2.png</image>
-		</screenshot>
-		<screenshot>
-			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/6-album_details.png</image>
-		</screenshot>
-		<screenshot>
-			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/7-home_screen.png</image>
-		</screenshot>
-		<screenshot>
-			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/8-player_related.png</image>
-		</screenshot>
-		<screenshot>
-			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/9-player2.png</image>
-		</screenshot>
-		<screenshot>
-			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/10-sonic_adventure.png</image>
-		</screenshot>
-		<screenshot>
-			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/11-moods.png</image>
-		</screenshot>
-		<screenshot>
-			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/12-player_vis3.png</image>
-		</screenshot>
-		<screenshot>
-			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/13-player3.png</image>
-		</screenshot>
-		<screenshot>
-			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/14-top_albums.png</image>
-		</screenshot>
-    </screenshots>
-    <content_rating type="oars-1.1"/>
+
+    <content_rating type="oars-1.1">
+        <content_attribute id="social-info">moderate</content_attribute>
+    </content_rating>
+
     <categories>
         <category>AudioVideo</category>
     </categories>
+
     <recommends>
         <internet>always</internet>
     </recommends>

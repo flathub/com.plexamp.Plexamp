@@ -26,7 +26,7 @@ modules:
       - install -Dm755 assets/startplexamp /app/bin/startplexamp
       - install -D com.plexamp.Plexamp.metainfo.xml -t /app/share/metainfo/
       - install -D assets/com.plexamp.Plexamp.desktop -t /app/share/applications/
-      - install -D assets/com.plexamp.Plexamp.svg /app/share/icons/hicolor/512x512/apps/com.plexamp.Plexamp.svg
+      - install -D assets/com.plexamp.Plexamp.svg /app/share/icons/hicolor/scalable/apps/com.plexamp.Plexamp.svg
     sources:
       - type: dir
         path: .
@@ -43,8 +43,8 @@ modules:
 
     sources:
       - type: file
-        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.10.2-beta.34.AppImage
-        sha512: 44eb1310f9d9f5d2b615cf9bd34c0ecbcb65ad24d52fd69e989b9ac2f6ce4477b652fbdcf699c4e36040a1872747fbe358fcd32bf0da3c6f45d140fccf665eae
+        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.11.1-beta.2.AppImage
+        sha512: 6a625447f9821c3b0c18aabd401566e7a0aa4c62a395a4c0d461f565d27a6a1e864a251acd84079548a62a2af16b1b67f48c3a72bab6b6670c8b772f29a1811c
         only-arches: [x86_64]
         x-checker-data:
           is-main-source: true
