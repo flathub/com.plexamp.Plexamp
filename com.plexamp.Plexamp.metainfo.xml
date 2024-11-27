@@ -97,8 +97,11 @@
     </screenshots>
     
     <releases>
-        <release version="4.11.3-beta.8" date="2024-11-16">
+        <release version="4.11.3-beta.10" date="2024-11-27">
             <description></description>
+        </release>
+        <release version="4.11.3-beta.8" date="2024-11-16">
+            <description/>
         </release>
         <release version="4.11.3-beta.7" date="2024-10-12">
             <description/>
