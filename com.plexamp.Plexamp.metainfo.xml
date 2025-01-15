@@ -95,8 +95,11 @@
 			<image>https://raw.githubusercontent.com/flathub/com.plexamp.Plexamp/master/screenshots/14-top_albums.png</image>
 		</screenshot>
     </screenshots>
-    
+
     <releases>
+        <release version="4.11.6-beta.5-r1" date="2025-01-15">
+            <description></description>
+        </release>
         <release version="4.11.6-beta.5" date="2025-01-08">
             <description></description>
         </release>
