@@ -39,8 +39,8 @@ modules:
 
     sources:
       - type: file
-        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.11.6-beta.5.AppImage
-        sha512: dc7b847d762ce0b8c0ecbf64505e898e3c9845cf447be1f94be9e3ead55c0de23b6fd907b58039989ac4a1723a3109c0f3587694dad772d25901568506d88d52
+        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.11.6-beta.22.AppImage
+        sha512: 924bab0f333e89bde52f600fc7808f62a3cd906beb55606ee8c753abdd722bc835501fb767c0f8813fa78cd8a1ee821e02ca2cdbf558987d9c361301365585d9
         only-arches: [x86_64]
         x-checker-data:
           is-main-source: true
