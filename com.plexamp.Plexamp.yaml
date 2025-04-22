@@ -1,11 +1,11 @@
 app-id: com.plexamp.Plexamp
 
 runtime: org.freedesktop.Platform
-runtime-version: '23.08'
+runtime-version: '24.08'
 sdk: org.freedesktop.Sdk
 
 base: org.electronjs.Electron2.BaseApp
-base-version: '23.08'
+base-version: '24.08'
 
 command: startplexamp
 separate-locales: false
@@ -16,7 +16,6 @@ finish-args:
   - --share=ipc
   - --share=network
   - --device=dri # Needed for GPU acceleration
-  - --talk-name=org.freedesktop.Notifications # for optional 'now playing' notifications
   - --own-name=org.mpris.MediaPlayer2.Plexamp
 
 modules:
@@ -43,8 +42,8 @@ modules:
       - mv squashfs-root "${FLATPAK_DEST}/bin/plexamp"
     sources:
       - type: file
-        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.12.0.AppImage
-        sha512: bc81fa1cf5a32f47f333cad76615d8507eaa4f799c6b95b189c451690afd4475b9d75c7ca4d9d199dc2d3037cab72ae1522645884d5701f5810d79aec5b256fe
+        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.12.1.AppImage
+        sha512: 889bd4b748f195e5b8702e387fbe6b4ed08783b57e6880581c78c15734ea7d442e445a4b634863e7e6d108c1de7230db621156f26d744987f16e7965d6d11fac
         x-checker-data:
           is-main-source: true
           type: electron-updater
