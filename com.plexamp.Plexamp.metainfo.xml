@@ -97,8 +97,11 @@
     </screenshots>
 
     <releases>
-        <release version="4.12.2-beta.2" date="2025-04-23">
+        <release version="4.12.2" date="2025-04-25">
             <description></description>
+        </release>
+        <release version="4.12.2-beta.2" date="2025-04-23">
+            <description/>
         </release>
         <release version="4.12.2-beta.1" date="2025-04-23">
             <description/>
