@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=Plexamp
-Exec=startplexamp
-Terminal=false
-Type=Application
-Icon=com.plexamp.Plexamp
-StartupWMClass=plexamp
-Comment=Beautiful music player for Plex
-Categories=AudioVideo;
