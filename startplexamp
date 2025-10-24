@@ -1,34 +1,39 @@
 #!/usr/bin/env bash
 
 TMPDIR="$XDG_RUNTIME_DIR/app/${FLATPAK_ID:-com.plexamp.Plexamp}"
-FLAGS='--enable-gpu-rasterization --enable-zero-copy --enable-gpu-compositing --enable-native-gpu-memory-buffers --enable-oop-rasterization --enable-features=UseSkiaRenderer --enable-wayland-ime'
+
+FLAGS='--enable-gpu-rasterization --enable-zero-copy --enable-gpu-compositing --enable-native-gpu-memory-buffers --enable-oop-rasterization --enable-features=UseSkiaRenderer'
+
 RED='\033[0;31m'
 NC='\033[0m'
 
-if [[ -e "$WAYLAND_DISPLAY" ]]
+if [[ $XDG_SESSION_TYPE == "wayland" && -z "$DISPLAY" ]]
 then
-    WAYLAND_SOCKET=$WAYLAND_DISPLAY
-else
-    WAYLAND_SOCKET=$XDG_RUNTIME_DIR/${WAYLAND_DISPLAY:-"wayland-0"}
-fi
+    echo -e "W[ae]yland detected, Yutani nowhere to be found... (${RED}--ozone-platform=wayland${NC})"
+    FLAGS="$FLAGS --ozone-platform=wayland --enable-wayland-ime --wayland-text-input-version=3"
 
-if [[ -e "$WAYLAND_SOCKET" ]]
-then
-    echo -e "W[ae]yland detected, Yutani nowhere to be found... (${RED}--ozone-platform-hint=auto${NC})"
-    FLAGS="$FLAGS --ozone-platform-hint=auto"
-
-    if [[ $XDG_SESSION_TYPE == "wayland" && $XDG_CURRENT_DESKTOP == *"GNOME"* ]]
+    if [[ -c /dev/nvidia0 ]]
+    then
+        echo -e "GPU is NVIDIA... ({$RED}--disable-gpu-sandbox${NC})"
+        FLAGS="$FLAGS --disable-gpu-sandbox"
+    fi
+    
+    if [[ $XDG_CURRENT_DESKTOP == *"GNOME"* ]]
     then
         echo -e "Current desktop is GNOME... (${RED}--enable-features=WaylandWindowDecorations${NC})"
         FLAGS="$FLAGS --enable-features=WaylandWindowDecorations"
     fi
 
-    if [[ $XDG_SESSION_TYPE =~ "[Ww]ayland" ]] && [ -c /dev/nvidia0 ]
+    WAYLAND_SOCKET=${WAYLAND_DISPLAY:-"wayland-0"}
+
+    if [[ "${WAYLAND_SOCKET:0:1}" != "/" ]]
     then
-        echo -e "GPU is NVIDIA... ({$RED}--disable-gpu-sandbox${NC})"
-        FLAGS="$FLAGS --disable-gpu-sandbox"
+        WAYLAND_SOCKET="$XDG_RUNTIME_DIR/$WAYLAND_SOCKET"
     fi
+else
+    echo -e "${RED}Running on X11${NC}"
+    echo "To use Wayland instead, remove the --socket=x11 permission"
 fi
 
-echo -e "Passing the following arguments to Electron:" "${FLAGS[@]}"
+echo -e "Passing the following arguments to Electron:" "${FLAGS}"
 zypak-wrapper /app/bin/plexamp/plexamp $FLAGS "$@"
