@@ -1,29 +1,34 @@
 #!/usr/bin/env bash
 
-FEATURES="UseSkiaRenderer"
 TMPDIR="$XDG_RUNTIME_DIR/app/${FLATPAK_ID:-com.plexamp.Plexamp}"
-declare -a FLAGS=(--enable-gpu-rasterization --enable-zero-copy --enable-gpu-compositing --enable-native-gpu-memory-buffers --enable-oop-rasterization --disable-gpu-blocklist)
+FLAGS='--enable-gpu-rasterization --enable-zero-copy --enable-gpu-compositing --enable-native-gpu-memory-buffers --enable-oop-rasterization --enable-features=UseSkiaRenderer --enable-wayland-ime'
+RED='\033[0;31m'
+NC='\033[0m'
 
-if [[ $XDG_SESSION_TYPE == "wayland" ]]
+if [[ -e "$WAYLAND_DISPLAY" ]]
 then
-    WAYLAND_SOCKET=${WAYLAND_DISPLAY:-"wayland-0"}
-
-    if [[ -e "$XDG_RUNTIME_DIR/${WAYLAND_SOCKET}" ]]
-    then
-        echo "Wayland socket is available, running natively on Wayland."
-        echo "To disable, remove the --socket=wayland permission."
-        FLAGS+=(--ozone-platform=wayland)
-    else
-        echo "Wayland socket not available, running through Xwayland."
-    fi
-    if [[ -c /dev/nvidia0 ]]
-    then
-        echo "Using NVIDIA on Wayland, applying workaround"
-        FLAGS+=(--disable-gpu-sandbox)
-    fi
-
+    WAYLAND_SOCKET=$WAYLAND_DISPLAY
+else
+    WAYLAND_SOCKET=$XDG_RUNTIME_DIR/${WAYLAND_DISPLAY:-"wayland-0"}
 fi
 
-FLAGS+=(--enable-features="${FEATURES}")
-echo "Passing the following arguments to Electron:" "${FLAGS[@]}"
-zypak-wrapper /app/bin/plexamp/plexamp "${FLAGS[@]}" "$@"
+if [[ -e "$WAYLAND_SOCKET" ]]
+then
+    echo -e "W[ae]yland detected, Yutani nowhere to be found... (${RED}--ozone-platform-hint=auto${NC})"
+    FLAGS="$FLAGS --ozone-platform-hint=auto"
+
+    if [[ $XDG_SESSION_TYPE == "wayland" && $XDG_CURRENT_DESKTOP == *"GNOME"* ]]
+    then
+        echo -e "Current desktop is GNOME... (${RED}--enable-features=WaylandWindowDecorations${NC})"
+        FLAGS="$FLAGS --enable-features=WaylandWindowDecorations"
+    fi
+
+    if [[ $XDG_SESSION_TYPE =~ "[Ww]ayland" ]] && [ -c /dev/nvidia0 ]
+    then
+        echo -e "GPU is NVIDIA... ({$RED}--disable-gpu-sandbox${NC})"
+        FLAGS="$FLAGS --disable-gpu-sandbox"
+    fi
+fi
+
+echo -e "Passing the following arguments to Electron:" "${FLAGS[@]}"
+zypak-wrapper /app/bin/plexamp/plexamp $FLAGS "$@"
