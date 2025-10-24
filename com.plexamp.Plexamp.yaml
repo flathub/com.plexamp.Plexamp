@@ -1,7 +1,7 @@
 app-id: com.plexamp.Plexamp
 
 runtime: org.freedesktop.Platform
-runtime-version: &runtime-version "25.08"
+runtime-version: &runtime-version '25.08'
 sdk: org.freedesktop.Sdk
 
 base: org.electronjs.Electron2.BaseApp
@@ -46,9 +46,9 @@ modules:
         path: com.plexamp.Plexamp.metainfo.xml
 
       - type: file
-        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.13.1-beta.2.AppImage
+        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.13.1-beta.3.AppImage
         dest-filename: Plexamp.AppImage
-        sha512: b4a671f3e110ea9a6ac1091763e09fa10c24c9e7bbad8557dad46bd55fdd070b9ead0c0006d99f44c5901fa2694a27f99656b676cd7e081c28c0ba921a5c81a4
+        sha512: cac195fa03325c9643c3464c14a45bc46acaf972adf4f86e7b213b5794e413f053eedc29b5204c215b54fbf4a900715a0f12b06b4bec7e6a8f51144cb3171973
         only-arches: [x86_64]
         x-checker-data:
           is-main-source: true
