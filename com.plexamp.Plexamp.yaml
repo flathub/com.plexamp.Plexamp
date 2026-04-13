@@ -12,11 +12,13 @@ separate-locales: false
 
 finish-args:
   - --socket=pulseaudio
-  - --socket=x11
+  - --socket=wayland
+  - --socket=fallback-x11
   - --share=ipc
   - --share=network
   - --device=dri # Needed for GPU acceleration
   - --own-name=org.mpris.MediaPlayer2.Plexamp
+  - --env=XCURSOR_PATH=/run/host/user-share/icons:/run/host/share/icons # resolve wayland cursor issues
 
 modules:
   - name: Plexamp
