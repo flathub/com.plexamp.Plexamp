@@ -1,7 +1,7 @@
 app-id: com.plexamp.Plexamp
 
 runtime: org.freedesktop.Platform
-runtime-version: &runtime-version "25.08"
+runtime-version: &runtime-version '25.08'
 sdk: org.freedesktop.Sdk
 
 base: org.electronjs.Electron2.BaseApp
@@ -12,11 +12,13 @@ separate-locales: false
 
 finish-args:
   - --socket=pulseaudio
-  - --socket=x11
+  - --socket=wayland
+  - --socket=fallback-x11
   - --share=ipc
   - --share=network
   - --device=dri # Needed for GPU acceleration
   - --own-name=org.mpris.MediaPlayer2.Plexamp
+  - --env=XCURSOR_PATH=/run/host/user-share/icons:/run/host/share/icons # resolve wayland cursor issues
 
 modules:
   - name: Plexamp
@@ -44,9 +46,9 @@ modules:
         path: com.plexamp.Plexamp.metainfo.xml
 
       - type: file
-        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.12.4.AppImage
+        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.13.1.AppImage
         dest-filename: Plexamp.AppImage
-        sha512: 2ed62a0b8a6a5fb840f9c9548fd515ae9d1859e6c42d42ccdb74ac6252a75437186d99fc2c995d88e39e6d2d3e494e11a8ad5af19dca8787cf27f1df8a33f4ab
+        sha512: 1e0174fa88dbd303963b50ee8a27e260c6f49128912efbcc72d782f3dcd9e0860e7e5ccec3ebcd2a853e7b2468d5897a8ab20bfcf837d9e2b8c519f9c32078ea
         x-checker-data:
           is-main-source: true
           type: electron-updater
