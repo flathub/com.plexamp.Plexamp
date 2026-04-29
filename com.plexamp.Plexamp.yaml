@@ -46,9 +46,9 @@ modules:
         path: com.plexamp.Plexamp.metainfo.xml
 
       - type: file
-        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.13.1-beta.12.AppImage
+        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.13.2.AppImage
         dest-filename: Plexamp.AppImage
-        sha512: 89c640880b1bef0a99659c1efe176e489c3519e675ee07265c05fafd049fbece38f8a944ac6b21e4629a5d8d8f2c73618925e23791a540e63277aeae9ec43107
+        sha512: 5b0fd07cc8267a086d85fb867dce0f96feef50a2e290b7f847e488986e93b98834a43279a6cb87b5741ecd5d01bab5519ba790f8eae2f9818ad80e76b4291c7f
         only-arches: [x86_64]
         x-checker-data:
           is-main-source: true
