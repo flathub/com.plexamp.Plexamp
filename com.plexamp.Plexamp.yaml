@@ -13,6 +13,13 @@
 # and never reach Flathub. The Flathub beta branch exists so Flatpak users can
 # opt into the Tauri app while the stable listing still serves 4.13; once that
 # has settled, the same file goes to master and stable follows stable.
+#
+# Only this file and flathub.json live here. The AppStream metainfo the build
+# installs is maintained in the Flathub repo beside it, NOT the 19-line stub at
+# ../com.plexamp.Plexamp.metainfo.xml that the self-hosted bundle uses: the
+# Flathub one carries the branding, the fourteen screenshots and the release
+# history that flathub.org renders, so copying ours over would strip the listing
+# bare. Add a <release> entry there when the pinned version moves.
 app-id: com.plexamp.Plexamp
 
 runtime: org.gnome.Platform
@@ -23,16 +30,31 @@ command: Plexamp
 separate-locales: false
 
 finish-args:
-  - --socket=x11
+  # fallback-x11 rather than x11: Flathub's linter refuses both sockets at
+  # once, and the fallback form hands out X11 only when there is no Wayland
+  # display to use instead.
   - --socket=wayland
+  - --socket=fallback-x11
   - --socket=pulseaudio
   # /dev/snd: direct ALSA output to a DAC, the Linux counterpart of exclusive-
   # mode WASAPI. Without it BASS only sees the PipeWire and Pulse plugins.
   - --device=all
   - --share=ipc
   - --share=network
-  - --socket=session-bus
-  - --own-name=org.mpris.MediaPlayer2.Plexamp
+  # Named destinations instead of --socket=session-bus, which the linter counts
+  # as arbitrary D-Bus access. Everything Plexamp does on the session bus is one
+  # of these three:
+  #   the XDG notification service, which src/notify.rs calls directly;
+  #   MPRIS, where souvlaki registers org.mpris.MediaPlayer2.<dbus_name> and our
+  #   dbus_name is "plexamp", so the name is lower-case (the capitalised
+  #   spelling that used to sit here matched nothing, which went unnoticed
+  #   because full session-bus access made owning the right name moot);
+  #   single-instance, which owns <bundle identifier>.SingleInstance and is how
+  #   deep links reach a running app. That identifier is tv.plex.plexamp, not
+  #   the Flatpak app id.
+  - --talk-name=org.freedesktop.Notifications
+  - --own-name=org.mpris.MediaPlayer2.plexamp
+  - --own-name=tv.plex.plexamp.SingleInstance
   # ptrace inside the sandbox. Plexamp's audio engine is native C++ and its
   # crash reporter is an out-of-process minidump writer (a child of the app),
   # which needs to ptrace-attach to the crashed parent. The default seccomp
