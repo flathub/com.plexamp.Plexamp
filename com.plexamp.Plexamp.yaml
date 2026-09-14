@@ -115,6 +115,10 @@ modules:
       - type: file
         path: com.plexamp.Plexamp.metainfo.xml
 
+      # One AppImage per architecture, both landing as Plexamp.AppImage, so the
+      # build commands above never learn which one they got. They do not need
+      # to: the two archives have identical layouts, down to all sixteen BASS
+      # plug-ins and the cacert path.
       - type: file
         url: https://plexamp.plex.tv/desktop/Plexamp-4.50.11-x86_64.AppImage
         dest-filename: Plexamp.AppImage
@@ -126,4 +130,20 @@ modules:
           url: https://plexamp.plex.tv/desktop/tauri-update.json
           version-query: .version
           url-query: .platforms["linux-x86_64"].url
+          timestamp-query: .pub_date
+
+      # No is-main-source here: exactly one source may claim it, and the x86_64
+      # entry is the one whose version the checker reports and writes into the
+      # update commit. This entry is still checked and still bumped, it just
+      # does not get a vote on what the release is called.
+      - type: file
+        url: https://plexamp.plex.tv/desktop/Plexamp-4.50.11-aarch64.AppImage
+        dest-filename: Plexamp.AppImage
+        sha256: df06e3f969a317b41ac8acd4c7a33ed705d18bc172ad2d2eb21ede74c705fc62
+        only-arches: [aarch64]
+        x-checker-data:
+          type: json
+          url: https://plexamp.plex.tv/desktop/tauri-update.json
+          version-query: .version
+          url-query: .platforms["linux-aarch64"].url
           timestamp-query: .pub_date
