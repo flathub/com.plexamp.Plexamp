@@ -49,12 +49,20 @@ finish-args:
   #   dbus_name is "plexamp", so the name is lower-case (the capitalised
   #   spelling that used to sit here matched nothing, which went unnoticed
   #   because full session-bus access made owning the right name moot);
-  #   single-instance, which owns <bundle identifier>.SingleInstance and is how
-  #   deep links reach a running app. That identifier is tv.plex.plexamp, not
-  #   the Flatpak app id.
   - --talk-name=org.freedesktop.Notifications
   - --own-name=org.mpris.MediaPlayer2.plexamp
-  - --own-name=tv.plex.plexamp.SingleInstance
+  #
+  # Single-instance is the one thing missing here. The plugin owns
+  # <bundle identifier>.SingleInstance, and our bundle identifier is
+  # tv.plex.plexamp, outside this app id's namespace: Flathub's linter rejects
+  # owning a name it does not govern, and no finish-arg can buy it. So on
+  # Flatpak a second launch opens a second window and a plexamp:// link cannot
+  # reach a running app. The plugin swallows the refusal and carries on.
+  #
+  # The fix belongs in the app, not here: pass dbus_id to the single-instance
+  # Builder so the name becomes com.plexamp.Plexamp.SingleInstance under
+  # Flatpak, which the sandbox permits by default with no finish-arg at all.
+  # Then this comment goes away.
   # ptrace inside the sandbox. Plexamp's audio engine is native C++ and its
   # crash reporter is an out-of-process minidump writer (a child of the app),
   # which needs to ptrace-attach to the crashed parent. The default seccomp
