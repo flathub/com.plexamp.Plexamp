@@ -59,10 +59,11 @@ finish-args:
   # Flatpak a second launch opens a second window and a plexamp:// link cannot
   # reach a running app. The plugin swallows the refusal and carries on.
   #
-  # The fix belongs in the app, not here: pass dbus_id to the single-instance
-  # Builder so the name becomes com.plexamp.Plexamp.SingleInstance under
-  # Flatpak, which the sandbox permits by default with no finish-arg at all.
-  # Then this comment goes away.
+  # The app side is already fixed: it passes FLATPAK_ID to the single-instance
+  # Builder, so inside the sandbox the name becomes
+  # com.plexamp.Plexamp.SingleInstance, which is permitted by default with no
+  # finish-arg at all. This comment can go once the pinned AppImage carries
+  # that change, which means any desktop release after 4.50.12-beta.1.
   # ptrace inside the sandbox. Plexamp's audio engine is native C++ and its
   # crash reporter is an out-of-process minidump writer (a child of the app),
   # which needs to ptrace-attach to the crashed parent. The default seccomp
