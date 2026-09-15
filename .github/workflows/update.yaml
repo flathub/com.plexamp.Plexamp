@@ -47,13 +47,36 @@ jobs:
         run: |
           set -euo pipefail
           for pr in $(gh pr list --author app/github-actions --state open --json number --jq '.[].number'); do
-            # Merge only when every reported check has passed. An empty rollup
-            # means the build has not reported yet, so leave it for the next run.
+            # Merge only when every reported check has passed AND git can still
+            # apply the PR. Two ways that goes wrong, both of which mean "leave it
+            # for the next run" rather than "fail the run":
+            #   - an empty rollup: the build has not reported yet.
+            #   - CONFLICTING: the base branch moved on underneath a stale PR. Its
+            #     check result can still say SUCCESS while describing a manifest
+            #     the branch no longer resembles, so the checks alone are not
+            #     enough of a gate. UNKNOWN means GitHub has not worked the
+            #     mergeability out yet, and is equally a reason to wait.
             states="$(gh pr view "$pr" --json statusCheckRollup \
                         --jq '[.statusCheckRollup[].state // .statusCheckRollup[].conclusion] | unique | join(",")')"
-            echo "PR #$pr checks: ${states:-none yet}"
-            if [ "$states" = "SUCCESS" ]; then
-              gh pr merge "$pr" --squash --delete-branch
-              echo "merged #$pr"
+            # GitHub computes mergeability lazily, so the first read of a fresh
+            # PR is usually UNKNOWN and the answer lands a moment later. Ask a few
+            # times rather than writing it off: this job runs hourly, and treating
+            # "not computed yet" as "not mergeable" would delay every routine
+            # update by a full cycle.
+            for _ in 1 2 3; do
+              mergeable="$(gh pr view "$pr" --json mergeable --jq '.mergeable')"
+              [ "$mergeable" != "UNKNOWN" ] && break
+              sleep 5
+            done
+            echo "PR #$pr checks: ${states:-none yet}, mergeable: $mergeable"
+            if [ "$states" = "SUCCESS" ] && [ "$mergeable" = "MERGEABLE" ]; then
+              # Tolerate a merge that fails anyway (a race with a push to the base,
+              # a protected-branch rule). One unmergeable PR must not abort the
+              # loop and leave the ones behind it unmerged.
+              if gh pr merge "$pr" --squash --delete-branch; then
+                echo "merged #$pr"
+              else
+                echo "could not merge #$pr; leaving it open"
+              fi
             fi
           done
