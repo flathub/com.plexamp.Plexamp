@@ -52,18 +52,14 @@ finish-args:
   - --talk-name=org.freedesktop.Notifications
   - --own-name=org.mpris.MediaPlayer2.plexamp
   #
-  # Single-instance is the one thing missing here. The plugin owns
-  # <bundle identifier>.SingleInstance, and our bundle identifier is
-  # tv.plex.plexamp, outside this app id's namespace: Flathub's linter rejects
-  # owning a name it does not govern, and no finish-arg can buy it. So on
-  # Flatpak a second launch opens a second window and a plexamp:// link cannot
-  # reach a running app. The plugin swallows the refusal and carries on.
-  #
-  # The app side is already fixed: it passes FLATPAK_ID to the single-instance
-  # Builder, so inside the sandbox the name becomes
-  # com.plexamp.Plexamp.SingleInstance, which is permitted by default with no
-  # finish-arg at all. This comment can go once the pinned AppImage carries
-  # that change, which means any desktop release after 4.50.12-beta.1.
+  # Single instance needs no grant, but only because the app cooperates. The
+  # plugin would otherwise own <bundle identifier>.SingleInstance, and
+  # tv.plex.plexamp sits outside this app id's namespace, which Flathub's linter
+  # rejects outright and no finish-arg can buy back. From 4.50.12 the app names
+  # that service after FLATPAK_ID instead, giving
+  # com.plexamp.Plexamp.SingleInstance, a subname of the app id that the sandbox
+  # grants by default. Pinning anything older costs single instance and any
+  # plexamp:// link trying to reach a running app.
   # ptrace inside the sandbox. Plexamp's audio engine is native C++ and its
   # crash reporter is an out-of-process minidump writer (a child of the app),
   # which needs to ptrace-attach to the crashed parent. The default seccomp
@@ -120,9 +116,9 @@ modules:
       # to: the two archives have identical layouts, down to all sixteen BASS
       # plug-ins and the cacert path.
       - type: file
-        url: https://plexamp.plex.tv/desktop/Plexamp-4.50.11-x86_64.AppImage
+        url: https://plexamp.plex.tv/desktop/Plexamp-4.50.12-x86_64.AppImage
         dest-filename: Plexamp.AppImage
-        sha256: bd5d6e3edfb257a396fd93112360cf777641dd286c3224f5bf5d85c6e93404c6
+        sha256: 788f127f5bc17de0259ae4ec9ab22edfac2ca721edf125cb20e4d91ea43c7ebe
         only-arches: [x86_64]
         x-checker-data:
           type: json
@@ -137,9 +133,9 @@ modules:
       # update commit. This entry is still checked and still bumped, it just
       # does not get a vote on what the release is called.
       - type: file
-        url: https://plexamp.plex.tv/desktop/Plexamp-4.50.11-aarch64.AppImage
+        url: https://plexamp.plex.tv/desktop/Plexamp-4.50.12-aarch64.AppImage
         dest-filename: Plexamp.AppImage
-        sha256: df06e3f969a317b41ac8acd4c7a33ed705d18bc172ad2d2eb21ede74c705fc62
+        sha256: a2e17214956352920e5c64ea025bd68c81389ca8668d74928a0d8a77fa2c1b62
         only-arches: [aarch64]
         x-checker-data:
           type: json
