@@ -27,3 +27,33 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           args: --update --never-fork com.plexamp.Plexamp.yaml
+  # Merge what the checker opened, once Flathub's builder has passed it.
+  #
+  # Without this the checker does all the work and then waits on a human to
+  # press a button, which is a chore that gets forgotten. A PR whose build
+  # failed simply stays open, which is the right outcome: the check is the
+  # gate, not the click.
+  auto-merge:
+    needs: flatpak-external-data-checker
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Merge checker PRs whose build has passed
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          for pr in $(gh pr list --author app/github-actions --state open --json number --jq '.[].number'); do
+            # Merge only when every reported check has passed. An empty rollup
+            # means the build has not reported yet, so leave it for the next run.
+            states="$(gh pr view "$pr" --json statusCheckRollup \
+                        --jq '[.statusCheckRollup[].state // .statusCheckRollup[].conclusion] | unique | join(",")')"
+            echo "PR #$pr checks: ${states:-none yet}"
+            if [ "$states" = "SUCCESS" ]; then
+              gh pr merge "$pr" --squash --delete-branch
+              echo "merged #$pr"
+            fi
+          done
