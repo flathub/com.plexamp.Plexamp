@@ -97,6 +97,11 @@
     </screenshots>
 
     <releases>
+        <release version="4.50.12" date="2026-09-15">
+            <description>
+                <p>Plexamp can now open audio devices directly through ALSA, so a DAC can be selected as an output instead of only the PipeWire or PulseAudio server. Crash reports carry stack traces again.</p>
+            </description>
+        </release>
         <release version="4.50.11" date="2026-09-13">
             <description>
                 <p>Plexamp 4.50 is a ground-up rebuild of the desktop app. It renders through the system WebKitGTK from the GNOME runtime rather than a bundled browser, and its audio engine can open a DAC directly through ALSA.</p>
