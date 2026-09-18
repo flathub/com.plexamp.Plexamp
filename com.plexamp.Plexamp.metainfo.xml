@@ -97,6 +97,9 @@
     </screenshots>
 
     <releases>
+        <release version="4.50.13" date="2026-09-18">
+            <description></description>
+        </release>
         <release version="4.50.12" date="2026-09-15">
             <description>
                 <p>Plexamp can now open audio devices directly through ALSA, so a DAC can be selected as an output instead of only the PipeWire or PulseAudio server. Crash reports carry stack traces again.</p>
@@ -108,7 +111,7 @@
             </description>
         </release>
         <release version="4.13.2-beta.1" date="2026-04-29">
-            <description></description>
+            <description/>
         </release>
         <release version="4.13.1-beta.12" date="2026-04-11">
             <description/>
