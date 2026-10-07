@@ -6,13 +6,12 @@
 # app-specific parts of it into the GNOME runtime. WebKitGTK, GTK and friends
 # come from the runtime rather than the AppImage's bundled copies.
 #
-# Flathub's beta and master branches both use this file, and both track our
-# STABLE releases: x-checker-data reads plexamp.plex.tv/desktop/tauri-update.json,
-# the manifest the in-app stable channel follows, so the external-data-checker
-# opens a PR on each stable desktop release. Our own -beta.N builds are internal
-# and never reach Flathub. The Flathub beta branch exists so Flatpak users can
-# opt into the Tauri app while the stable listing still serves 4.13; once that
-# has settled, the same file goes to master and stable follows stable.
+# This file is Flathub's beta branch, and it tracks our BETA releases:
+# x-checker-data reads plexamp.plex.tv/desktop/tauri-update-beta.json, the
+# manifest the in-app beta channel follows, so the external-data-checker opens a
+# PR on each desktop beta (and on each stable, which is mirrored into the beta
+# manifest). The stable listing (master) still serves 4.13; when it moves to the
+# Tauri app it takes a copy of this file pointed at tauri-update.json instead.
 #
 # Only this file and flathub.json live here. The AppStream metainfo the build
 # installs is maintained in the Flathub repo beside it, NOT the 19-line stub at
@@ -68,6 +67,12 @@ finish-args:
   # The only thing this exposes is ptrace between Plexamp's own processes.
   - --allow=devel
 
+  # Our fontconfig file (installed below): the runtime's config plus a rule that
+  # rejects .woff/.woff2. Hosts with fonts-katex expose those to the sandbox
+  # without a family name, so fc-match sans-serif picked KaTeX_AMS and launch
+  # spun at 100% CPU inside fontconfig.
+  - --env=FONTCONFIG_FILE=/app/etc/fonts/plexamp-fonts.conf
+
 modules:
   - name: plexamp
     buildsystem: simple
@@ -92,6 +97,18 @@ modules:
         done
       - install -Dm644 squashfs-root/usr/lib/Plexamp/cacert.pem /app/lib/Plexamp/cacert.pem
 
+      # Fontconfig: the runtime's config plus a rejectfont rule for web fonts (see finish-args).
+      - |
+        install -d /app/etc/fonts
+        cat > /app/etc/fonts/plexamp-fonts.conf <<'EOF'
+        <?xml version="1.0"?>
+        <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
+        <fontconfig>
+          <include ignore_missing="no">/etc/fonts/fonts.conf</include>
+          <selectfont><rejectfont><glob>*.woff</glob><glob>*.woff2</glob></rejectfont></selectfont>
+        </fontconfig>
+        EOF
+
       # Desktop file, renamed to the reverse-DNS id and pointed at that icon.
       - |
         sed -e 's|^Icon=Plexamp|Icon=com.plexamp.Plexamp|' \
@@ -100,12 +117,9 @@ modules:
         install -Dm644 com.plexamp.Plexamp.desktop /app/share/applications/com.plexamp.Plexamp.desktop
 
       # Icons
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/32x32/apps/Plexamp.png
-        /app/share/icons/hicolor/32x32/apps/com.plexamp.Plexamp.png
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/128x128/apps/Plexamp.png
-        /app/share/icons/hicolor/128x128/apps/com.plexamp.Plexamp.png
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/256x256@2/apps/Plexamp.png
-        /app/share/icons/hicolor/256x256@2/apps/com.plexamp.Plexamp.png
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/32x32/apps/Plexamp.png /app/share/icons/hicolor/32x32/apps/com.plexamp.Plexamp.png
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/128x128/apps/Plexamp.png /app/share/icons/hicolor/128x128/apps/com.plexamp.Plexamp.png
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/256x256@2/apps/Plexamp.png /app/share/icons/hicolor/256x256@2/apps/com.plexamp.Plexamp.png
 
       # AppStream metadata
       - install -Dm644 com.plexamp.Plexamp.metainfo.xml /app/share/metainfo/com.plexamp.Plexamp.metainfo.xml
@@ -119,14 +133,14 @@ modules:
       # to: the two archives have identical layouts, down to all sixteen BASS
       # plug-ins and the cacert path.
       - type: file
-        url: https://plexamp.plex.tv/desktop/Plexamp-4.50.19-x86_64.AppImage
+        url: https://plexamp.plex.tv/desktop/Plexamp-4.50.20-beta.18-x86_64.AppImage
         dest-filename: Plexamp.AppImage
-        sha256: 52031a1f319be284765a99dba74cb2a7f62449115bd219ca5b9a4c142328bbaa
+        sha256: 6931151c97969dc8b5826022cdf1192e8e21ad3ecf282df2b2b78a25e85ff1d3
         only-arches: [x86_64]
         x-checker-data:
           type: json
           is-main-source: true
-          url: https://plexamp.plex.tv/desktop/tauri-update.json
+          url: https://plexamp.plex.tv/desktop/tauri-update-beta.json
           version-query: .version
           url-query: .platforms["linux-x86_64"].url
           timestamp-query: .pub_date
@@ -136,13 +150,13 @@ modules:
       # update commit. This entry is still checked and still bumped, it just
       # does not get a vote on what the release is called.
       - type: file
-        url: https://plexamp.plex.tv/desktop/Plexamp-4.50.19-aarch64.AppImage
+        url: https://plexamp.plex.tv/desktop/Plexamp-4.50.20-beta.18-aarch64.AppImage
         dest-filename: Plexamp.AppImage
-        sha256: 25291a240e98fe361573821cd0ccfd02760fd0d7a5fe2a5fee77376103b03e7c
+        sha256: e17ca26f71ff60e50c47cc8b8eb4713040893327f02783d1548b295b15d68380
         only-arches: [aarch64]
         x-checker-data:
           type: json
-          url: https://plexamp.plex.tv/desktop/tauri-update.json
+          url: https://plexamp.plex.tv/desktop/tauri-update-beta.json
           version-query: .version
           url-query: .platforms["linux-aarch64"].url
           timestamp-query: .pub_date
