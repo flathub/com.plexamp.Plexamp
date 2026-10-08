@@ -117,9 +117,12 @@ modules:
         install -Dm644 com.plexamp.Plexamp.desktop /app/share/applications/com.plexamp.Plexamp.desktop
 
       # Icons
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/32x32/apps/Plexamp.png /app/share/icons/hicolor/32x32/apps/com.plexamp.Plexamp.png
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/128x128/apps/Plexamp.png /app/share/icons/hicolor/128x128/apps/com.plexamp.Plexamp.png
-      - install -Dm644 squashfs-root/usr/share/icons/hicolor/256x256@2/apps/Plexamp.png /app/share/icons/hicolor/256x256@2/apps/com.plexamp.Plexamp.png
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/32x32/apps/Plexamp.png
+        /app/share/icons/hicolor/32x32/apps/com.plexamp.Plexamp.png
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/128x128/apps/Plexamp.png
+        /app/share/icons/hicolor/128x128/apps/com.plexamp.Plexamp.png
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/256x256@2/apps/Plexamp.png
+        /app/share/icons/hicolor/256x256@2/apps/com.plexamp.Plexamp.png
 
       # AppStream metadata
       - install -Dm644 com.plexamp.Plexamp.metainfo.xml /app/share/metainfo/com.plexamp.Plexamp.metainfo.xml
@@ -133,9 +136,9 @@ modules:
       # to: the two archives have identical layouts, down to all sixteen BASS
       # plug-ins and the cacert path.
       - type: file
-        url: https://plexamp.plex.tv/desktop/Plexamp-4.50.20-beta.18-x86_64.AppImage
+        url: https://plexamp.plex.tv/desktop/Plexamp-4.50.20-beta.20-x86_64.AppImage
         dest-filename: Plexamp.AppImage
-        sha256: 6931151c97969dc8b5826022cdf1192e8e21ad3ecf282df2b2b78a25e85ff1d3
+        sha256: ecbc0c2971e467fa915cc2623520dba0279a1a8cb4a71cdd566e8d62a9beef48
         only-arches: [x86_64]
         x-checker-data:
           type: json
@@ -150,9 +153,9 @@ modules:
       # update commit. This entry is still checked and still bumped, it just
       # does not get a vote on what the release is called.
       - type: file
-        url: https://plexamp.plex.tv/desktop/Plexamp-4.50.20-beta.18-aarch64.AppImage
+        url: https://plexamp.plex.tv/desktop/Plexamp-4.50.20-beta.20-aarch64.AppImage
         dest-filename: Plexamp.AppImage
-        sha256: e17ca26f71ff60e50c47cc8b8eb4713040893327f02783d1548b295b15d68380
+        sha256: 1739b2a22c6a657da7c13b2ad57d4b94dff61d3048af647c48e65f4ba2996c77
         only-arches: [aarch64]
         x-checker-data:
           type: json
