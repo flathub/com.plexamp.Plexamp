@@ -1,55 +1,164 @@
+# Flathub manifest for Plexamp (the Tauri desktop app, 4.50+).
+#
+# Mirrors ../com.plexamp.Plexamp.yml, which builds the self-hosted bundle from
+# the deb payload in CI. Flathub cannot see that payload, so this one takes the
+# released AppImage, the same bytes every AppImage user runs, and installs the
+# app-specific parts of it into the GNOME runtime. WebKitGTK, GTK and friends
+# come from the runtime rather than the AppImage's bundled copies.
+#
+# This file is Flathub's stable branch (master), and it tracks our STABLE
+# releases: x-checker-data reads plexamp.plex.tv/desktop/tauri-update.json, the
+# manifest the in-app stable channel follows, so the external-data-checker opens
+# a PR on each stable desktop release. The beta branch carries the same file
+# pointed at tauri-update-beta.json; keep the two in step.
+#
+# Only this file and flathub.json live here. The AppStream metainfo the build
+# installs is maintained in the Flathub repo beside it, NOT the 19-line stub at
+# ../com.plexamp.Plexamp.metainfo.xml that the self-hosted bundle uses: the
+# Flathub one carries the branding, the fourteen screenshots and the release
+# history that flathub.org renders, so copying ours over would strip the listing
+# bare. Add a <release> entry there when the pinned version moves.
 app-id: com.plexamp.Plexamp
 
-runtime: org.freedesktop.Platform
-runtime-version: &runtime-version '25.08'
-sdk: org.freedesktop.Sdk
+runtime: org.gnome.Platform
+runtime-version: '50'
+sdk: org.gnome.Sdk
 
-base: org.electronjs.Electron2.BaseApp
-base-version: *runtime-version
-
-command: startplexamp
+command: Plexamp
 separate-locales: false
 
 finish-args:
-  - --socket=pulseaudio
+  # fallback-x11 rather than x11: Flathub's linter refuses both sockets at
+  # once, and the fallback form hands out X11 only when there is no Wayland
+  # display to use instead.
   - --socket=wayland
   - --socket=fallback-x11
+  - --socket=pulseaudio
+  # /dev/snd: direct ALSA output to a DAC, the Linux counterpart of exclusive-
+  # mode WASAPI. Without it BASS only sees the PipeWire and Pulse plugins.
+  - --device=all
   - --share=ipc
   - --share=network
-  - --device=dri # Needed for GPU acceleration
-  - --own-name=org.mpris.MediaPlayer2.Plexamp
-  - --env=XCURSOR_PATH=/run/host/user-share/icons:/run/host/share/icons # resolve wayland cursor issues
+  # Named destinations instead of --socket=session-bus, which the linter counts
+  # as arbitrary D-Bus access. Everything Plexamp does on the session bus is one
+  # of these three:
+  #   the XDG notification service, which src/notify.rs calls directly;
+  #   MPRIS, where souvlaki registers org.mpris.MediaPlayer2.<dbus_name> and our
+  #   dbus_name is "plexamp", so the name is lower-case (the capitalised
+  #   spelling that used to sit here matched nothing, which went unnoticed
+  #   because full session-bus access made owning the right name moot);
+  - --talk-name=org.freedesktop.Notifications
+  - --own-name=org.mpris.MediaPlayer2.plexamp
+  #
+  # Single instance needs no grant, but only because the app cooperates. The
+  # plugin would otherwise own <bundle identifier>.SingleInstance, and
+  # tv.plex.plexamp sits outside this app id's namespace, which Flathub's linter
+  # rejects outright and no finish-arg can buy back. From 4.50.12 the app names
+  # that service after FLATPAK_ID instead, giving
+  # com.plexamp.Plexamp.SingleInstance, a subname of the app id that the sandbox
+  # grants by default. Pinning anything older costs single instance and any
+  # plexamp:// link trying to reach a running app.
+  # ptrace inside the sandbox. Plexamp's audio engine is native C++ and its
+  # crash reporter is an out-of-process minidump writer (a child of the app),
+  # which needs to ptrace-attach to the crashed parent. The default seccomp
+  # filter refuses that, so a Flatpak crash report arrives with a module list
+  # and no thread stacks, which makes native crashes on Flatpak undiagnosable.
+  # The only thing this exposes is ptrace between Plexamp's own processes.
+  - --allow=devel
+
+  # Our fontconfig file (installed below): the runtime's config plus a rule that
+  # rejects .woff/.woff2. Hosts with fonts-katex expose those to the sandbox
+  # without a family name, so fc-match sans-serif picked KaTeX_AMS and launch
+  # spun at 100% CPU inside fontconfig.
+  - --env=FONTCONFIG_FILE=/app/etc/fonts/plexamp-fonts.conf
 
 modules:
-  - name: Plexamp
+  - name: plexamp
     buildsystem: simple
     build-commands:
       - chmod +x Plexamp.AppImage
       - ./Plexamp.AppImage --appimage-extract
-      - desktop-file-edit --set-key="Exec" --set-value="startplexamp %U" --set-icon=${FLATPAK_ID}
-        --remove-key="X-AppImage-Version" squashfs-root/plexamp.desktop
-      - install -D squashfs-root/plexamp.desktop /app/share/applications/com.plexamp.Plexamp.desktop
-      - install -D squashfs-root/plexamp.svg /app/share/icons/hicolor/scalable/apps/com.plexamp.Plexamp.svg
-      - install -D com.plexamp.Plexamp.metainfo.xml -t /app/share/metainfo/
-      - install -Dm755 startplexamp /app/bin/startplexamp
-      # Seem to be leftovers from the build system:
-      - find squashfs-root -depth \( -name .deps -o -name obj.target \) -exec rm -rfv
-        '{}' \;
-      # Move everything else:
-      - mv squashfs-root "${FLATPAK_DEST}/bin/plexamp"
+
+      # Binary
+      - install -Dm755 squashfs-root/usr/bin/Plexamp /app/bin/Plexamp
+
+      # Native audio libraries (TREBLE + BASS) and the CA bundle TREBLE reads.
+      # The AppImage tooling rewrote the binary's RUNPATH to $ORIGIN/../lib, so
+      # the libraries it links against must sit in /app/lib; the BASS plug-ins
+      # are found by path in /app/lib/plexamp. Same double layout the AppImage
+      # itself carries. libjack.so.0, which libtreble needs, comes from the
+      # runtime's pipewire-jack.
+      - mkdir -p /app/lib/plexamp
+      - install -Dm755 squashfs-root/usr/lib/plexamp/*.so /app/lib/plexamp/
+      - |
+        for lib in libtreble libbass libbassmix libbass_fx libbassenc; do
+          install -Dm755 squashfs-root/usr/lib/plexamp/$lib.so /app/lib/$lib.so
+        done
+      - install -Dm644 squashfs-root/usr/lib/Plexamp/cacert.pem /app/lib/Plexamp/cacert.pem
+
+      # Fontconfig: the runtime's config plus a rejectfont rule for web fonts (see finish-args).
+      - |
+        install -d /app/etc/fonts
+        cat > /app/etc/fonts/plexamp-fonts.conf <<'EOF'
+        <?xml version="1.0"?>
+        <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
+        <fontconfig>
+          <include ignore_missing="no">/etc/fonts/fonts.conf</include>
+          <selectfont><rejectfont><glob>*.woff</glob><glob>*.woff2</glob></rejectfont></selectfont>
+        </fontconfig>
+        EOF
+
+      # Desktop file, renamed to the reverse-DNS id and pointed at that icon.
+      - |
+        sed -e 's|^Icon=Plexamp|Icon=com.plexamp.Plexamp|' \
+            squashfs-root/usr/share/applications/Plexamp.desktop \
+            > com.plexamp.Plexamp.desktop
+        install -Dm644 com.plexamp.Plexamp.desktop /app/share/applications/com.plexamp.Plexamp.desktop
+
+      # Icons
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/32x32/apps/Plexamp.png
+        /app/share/icons/hicolor/32x32/apps/com.plexamp.Plexamp.png
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/128x128/apps/Plexamp.png
+        /app/share/icons/hicolor/128x128/apps/com.plexamp.Plexamp.png
+      - install -Dm644 squashfs-root/usr/share/icons/hicolor/256x256@2/apps/Plexamp.png
+        /app/share/icons/hicolor/256x256@2/apps/com.plexamp.Plexamp.png
+
+      # AppStream metadata
+      - install -Dm644 com.plexamp.Plexamp.metainfo.xml /app/share/metainfo/com.plexamp.Plexamp.metainfo.xml
 
     sources:
       - type: file
-        path: startplexamp
-
-      - type: file
         path: com.plexamp.Plexamp.metainfo.xml
 
+      # One AppImage per architecture, both landing as Plexamp.AppImage, so the
+      # build commands above never learn which one they got. They do not need
+      # to: the two archives have identical layouts, down to all sixteen BASS
+      # plug-ins and the cacert path.
       - type: file
-        url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-4.13.2.AppImage
+        url: https://plexamp.plex.tv/desktop/Plexamp-4.50.20-x86_64.AppImage
         dest-filename: Plexamp.AppImage
-        sha512: 5b0fd07cc8267a086d85fb867dce0f96feef50a2e290b7f847e488986e93b98834a43279a6cb87b5741ecd5d01bab5519ba790f8eae2f9818ad80e76b4291c7f
+        sha256: d7eb1bdf923b2f3b56d37e03a027d5af9a8ba81881c70a4e819ca77ab7865d1c
+        only-arches: [x86_64]
         x-checker-data:
+          type: json
           is-main-source: true
-          type: electron-updater
-          url: https://plexamp.plex.tv/plexamp.plex.tv/desktop/latest-linux.yml
+          url: https://plexamp.plex.tv/desktop/tauri-update.json
+          version-query: .version
+          url-query: .platforms["linux-x86_64"].url
+          timestamp-query: .pub_date
+
+      # No is-main-source here: exactly one source may claim it, and the x86_64
+      # entry is the one whose version the checker reports and writes into the
+      # update commit. This entry is still checked and still bumped, it just
+      # does not get a vote on what the release is called.
+      - type: file
+        url: https://plexamp.plex.tv/desktop/Plexamp-4.50.20-aarch64.AppImage
+        dest-filename: Plexamp.AppImage
+        sha256: 5c119621186b1bc22e579201bb23ef2d8af9ce9e2367ae32a86fc45a4a3e54e5
+        only-arches: [aarch64]
+        x-checker-data:
+          type: json
+          url: https://plexamp.plex.tv/desktop/tauri-update.json
+          version-query: .version
+          url-query: .platforms["linux-aarch64"].url
+          timestamp-query: .pub_date
