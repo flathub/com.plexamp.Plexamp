@@ -19,6 +19,14 @@
 # Flathub one carries the branding, the fourteen screenshots and the release
 # history that flathub.org renders, so copying ours over would strip the listing
 # bare. Add a <release> entry there when the pinned version moves.
+#
+# Pre-release versions are written with a tilde (4.50.20~beta.35), which is
+# what the version-query's sub() does. AppStream compares versions the Debian
+# way, where 4.50.20-beta.35 sorts ABOVE 4.50.20, so a stable listed over its
+# own betas fails the linter's releases-not-in-order check. A tilde sorts
+# below everything, so 4.50.20~beta.35 < 4.50.20 and the history stays valid
+# when a stable follows its betas. Only the <release> entry and the commit
+# message see this string; the checker decides on updates by URL.
 app-id: com.plexamp.Plexamp
 
 runtime: org.gnome.Platform
@@ -136,15 +144,15 @@ modules:
       # to: the two archives have identical layouts, down to all sixteen BASS
       # plug-ins and the cacert path.
       - type: file
-        url: https://plexamp.plex.tv/desktop/Plexamp-4.50.20-beta.35-x86_64.AppImage
+        url: https://plexamp.plex.tv/desktop/Plexamp-4.50.20-x86_64.AppImage
         dest-filename: Plexamp.AppImage
-        sha256: 3be249e386ca97cd4871bf3cfc227c702cb4d7eee2a17f70fe7aecea90147553
+        sha256: d7eb1bdf923b2f3b56d37e03a027d5af9a8ba81881c70a4e819ca77ab7865d1c
         only-arches: [x86_64]
         x-checker-data:
           type: json
           is-main-source: true
           url: https://plexamp.plex.tv/desktop/tauri-update-beta.json
-          version-query: .version
+          version-query: .version | sub("-"; "~")
           url-query: .platforms["linux-x86_64"].url
           timestamp-query: .pub_date
 
@@ -153,13 +161,13 @@ modules:
       # update commit. This entry is still checked and still bumped, it just
       # does not get a vote on what the release is called.
       - type: file
-        url: https://plexamp.plex.tv/desktop/Plexamp-4.50.20-beta.35-aarch64.AppImage
+        url: https://plexamp.plex.tv/desktop/Plexamp-4.50.20-aarch64.AppImage
         dest-filename: Plexamp.AppImage
-        sha256: 8e54375a18ac3f0972ae18dc03794e6acca14f306a0a4e7754865b1cfe59578d
+        sha256: 5c119621186b1bc22e579201bb23ef2d8af9ce9e2367ae32a86fc45a4a3e54e5
         only-arches: [aarch64]
         x-checker-data:
           type: json
           url: https://plexamp.plex.tv/desktop/tauri-update-beta.json
-          version-query: .version
+          version-query: .version | sub("-"; "~")
           url-query: .platforms["linux-aarch64"].url
           timestamp-query: .pub_date
