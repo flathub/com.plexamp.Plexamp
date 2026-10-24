@@ -19,6 +19,14 @@
 # Flathub one carries the branding, the fourteen screenshots and the release
 # history that flathub.org renders, so copying ours over would strip the listing
 # bare. Add a <release> entry there when the pinned version moves.
+#
+# Pre-release versions are written with a tilde (4.50.20~beta.35), which is
+# what the version-query's sub() does. AppStream compares versions the Debian
+# way, where 4.50.20-beta.35 sorts ABOVE 4.50.20, so a stable listed over its
+# own betas fails the linter's releases-not-in-order check. A tilde sorts
+# below everything, so 4.50.20~beta.35 < 4.50.20 and the history stays valid
+# when a stable follows its betas. Only the <release> entry and the commit
+# message see this string; the checker decides on updates by URL.
 app-id: com.plexamp.Plexamp
 
 runtime: org.gnome.Platform
@@ -144,7 +152,7 @@ modules:
           type: json
           is-main-source: true
           url: https://plexamp.plex.tv/desktop/tauri-update-beta.json
-          version-query: .version
+          version-query: .version | sub("-"; "~")
           url-query: .platforms["linux-x86_64"].url
           timestamp-query: .pub_date
 
@@ -160,6 +168,6 @@ modules:
         x-checker-data:
           type: json
           url: https://plexamp.plex.tv/desktop/tauri-update-beta.json
-          version-query: .version
+          version-query: .version | sub("-"; "~")
           url-query: .platforms["linux-aarch64"].url
           timestamp-query: .pub_date
