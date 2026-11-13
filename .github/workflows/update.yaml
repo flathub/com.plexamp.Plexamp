@@ -78,5 +78,16 @@ jobs:
               else
                 echo "could not merge #$pr; leaving it open"
               fi
+            elif [ "$mergeable" = "CONFLICTING" ]; then
+              # The checker never rebases its own PRs, so one the base branch moved
+              # on under stays unmergeable for good and holds every later update
+              # back. Close it, branch and all: the next run opens a fresh one from
+              # the branch as it is now.
+              if gh pr close "$pr" --delete-branch \
+                   --comment "Closed automatically: the base branch moved on and this no longer applies. The next check opens a fresh one."; then
+                echo "closed stale #$pr"
+              else
+                echo "could not close #$pr; leaving it open"
+              fi
             fi
           done
