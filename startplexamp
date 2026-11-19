@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-zypak-wrapper /app/bin/plexamp/plexamp "$@"
