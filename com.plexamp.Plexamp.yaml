@@ -144,9 +144,9 @@ modules:
       # to: the two archives have identical layouts, down to all sixteen BASS
       # plug-ins and the cacert path.
       - type: file
-        url: https://plexamp.plex.tv/desktop/Plexamp-4.50.21-beta.42-x86_64.AppImage
+        url: https://plexamp.plex.tv/desktop/Plexamp-4.50.21-beta.43-x86_64.AppImage
         dest-filename: Plexamp.AppImage
-        sha256: 33bcff4d2e56dbd6e814b3d905e6881427d0fc6961c220338df9b1286d214c28
+        sha256: 190abc5ee06b1031787d9df742526e47b68132c1a888b2183df835bfdf3a2715
         only-arches: [x86_64]
         x-checker-data:
           type: json
@@ -161,9 +161,9 @@ modules:
       # update commit. This entry is still checked and still bumped, it just
       # does not get a vote on what the release is called.
       - type: file
-        url: https://plexamp.plex.tv/desktop/Plexamp-4.50.21-beta.42-aarch64.AppImage
+        url: https://plexamp.plex.tv/desktop/Plexamp-4.50.21-beta.43-aarch64.AppImage
         dest-filename: Plexamp.AppImage
-        sha256: 40be4dac0868f967b64d9b61773e39ebcef8a10bbd7aa48ad2d3aef064b011bd
+        sha256: cf66d8faeb9c42f9724da87bb5c5dfd949d362fa5ba9d5b656c7cb5ff0da258d
         only-arches: [aarch64]
         x-checker-data:
           type: json
